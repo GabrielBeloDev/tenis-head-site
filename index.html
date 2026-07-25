@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tênis Head · Atacado e Varejo de tênis em São Luís — MA</title>
+<meta name="description" content="Loja física de tênis em São Luís/MA. Varejo e atacado, até 48% OFF, originais conferidos par por par. Av. Sol Nascente, 100 — Vila Luizão. Fale direto no WhatsApp." />
+<link rel="icon" href="assets/logo.jpg" />
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Tênis Head · Atacado e Varejo em São Luís — MA" />
+<meta property="og:description" content="Preço justo, qualidade impecável. Varejo e atacado, até 48% OFF. Fale direto no WhatsApp." />
+<meta property="og:image" content="assets/logo.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ShoeStore",
+  "name": "Tênis Head",
+  "description": "Atacado e varejo de tênis em São Luís, Maranhão.",
+  "telephone": "+5598991622057",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. Sol Nascente, 100",
+    "addressLocality": "São Luís",
+    "addressRegion": "MA",
+    "postalCode": "65068-212",
+    "addressCountry": "BR"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": -2.4929453, "longitude": -44.2153237 },
+  "sameAs": ["https://www.instagram.com/tenis__head_", "https://fans.link/tenishead"],
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Wednesday","Thursday","Friday","Saturday"], "opens": "08:30", "closes": "12:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Wednesday","Thursday","Friday","Saturday"], "opens": "14:30", "closes": "19:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "08:30", "closes": "12:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Tuesday", "opens": "14:00", "closes": "19:30" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Sunday", "opens": "08:30", "closes": "12:00" }
+  ]
+}
+</script>
+
+<style>
+:root {
+  --preto: #0c0c0d;
+  --carvao: #15151a;
+  --grafite: #101013;
+  --vermelho: #e01b22;
+  --vermelho-claro: #ff3b41;
+  --creme: #f4f2ef;
+  --cinza: #8f8a84;
+  --borda: rgba(244, 242, 239, .1);
+  --largura: 1280px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+
+body {
+  margin: 0;
+  background: var(--preto);
+  color: var(--creme);
+  font-family: 'Archivo', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, video { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+.container { width: 100%; max-width: var(--largura); margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+
+.faixa-listrada { height: 6px; background: repeating-linear-gradient(115deg, var(--vermelho) 0 22px, var(--preto) 22px 44px); }
+
+.rotulo {
+  font: 500 clamp(10px, 1.1vw, 11px)/1 'Space Grotesk', monospace;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--vermelho);
+}
+
+.titulo-secao {
+  margin: 14px 0 0;
+  font: 400 clamp(38px, 6vw, 68px)/.92 'Anton', sans-serif;
+  text-transform: uppercase;
+}
+
+.icone { width: 1em; height: 1em; flex: none; fill: currentColor; }
+
+/* ---------- Header ---------- */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(12, 12, 13, .92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--borda);
+}
+.cabecalho-linha { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px 0; }
+.marca { display: flex; align-items: center; gap: 13px; }
+.marca img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
+.marca-nome { font: 400 20px/1 'Anton', sans-serif; letter-spacing: .03em; text-transform: uppercase; }
+.marca-local { font: 500 10px/1.4 'Space Grotesk', monospace; letter-spacing: .2em; text-transform: uppercase; color: var(--cinza); margin-top: 5px; }
+
+.navegacao { display: flex; gap: 28px; font: 600 15px/1 'Barlow Condensed', sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #cdc8c2; }
+.navegacao a:hover { color: var(--creme); }
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 100px;
+  font: 700 15px/1 'Archivo', sans-serif;
+  padding: 15px 24px;
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.botao:hover { transform: translateY(-2px); }
+.botao-zap { background: var(--vermelho); color: #fff; }
+.botao-zap:hover { background: var(--vermelho-claro); }
+.botao-contorno { border: 1px solid rgba(244, 242, 239, .3); color: var(--creme); }
+.botao-contorno:hover { border-color: var(--creme); }
+.botao-escuro { background: var(--preto); color: #fff; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; min-height: clamp(560px, 82vh, 760px); display: flex; align-items: flex-end; overflow: hidden; }
+.hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .72; }
+.hero-veu { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12,12,13,.55), rgba(12,12,13,.25) 38%, rgba(12,12,13,.97)); }
+.hero-conteudo { position: relative; width: 100%; padding-bottom: clamp(36px, 6vw, 56px); padding-top: 80px; }
+
+.selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid rgba(244, 242, 239, .25);
+  border-radius: 100px;
+  padding: 9px 16px;
+  font: 500 11px/1 'Space Grotesk', monospace;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  backdrop-filter: blur(6px);
+}
+.selo-ponto { width: 8px; height: 8px; border-radius: 50%; background: var(--cinza); flex: none; }
+.selo[data-aberto="true"] .selo-ponto { background: #7dffa8; box-shadow: 0 0 0 4px rgba(125, 255, 168, .18); }
+.selo[data-aberto="false"] .selo-ponto { background: var(--vermelho); box-shadow: 0 0 0 4px rgba(224, 27, 34, .18); }
+
+.hero h1 {
+  margin: 20px 0 0;
+  font: 400 clamp(48px, 9.5vw, 128px)/.86 'Anton', sans-serif;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.hero h1 span { color: var(--vermelho); }
+.hero p { margin: 20px 0 0; font: 400 clamp(16px, 1.7vw, 21px)/1.5 'Archivo', sans-serif; color: rgba(244, 242, 239, .8); max-width: 540px; }
+.hero-acoes { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 30px; }
+.hero-nota { font: 500 12px/1.5 'Space Grotesk', monospace; letter-spacing: .12em; text-transform: uppercase; color: rgba(244, 242, 239, .55); max-width: 220px; }
+
+/* ---------- Ticker ---------- */
+.ticker { background: var(--vermelho); color: var(--preto); padding: 11px 0; overflow: hidden; white-space: nowrap; }
+.ticker-fita { display: inline-block; font: 700 13px/1 'Space Grotesk', monospace; letter-spacing: .24em; text-transform: uppercase; animation: correr 34s linear infinite; }
+@keyframes correr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .ticker-fita { animation: none; } html { scroll-behavior: auto; } }
+
+/* ---------- Vitrine ---------- */
+.secao { padding: clamp(56px, 8vw, 88px) 0 0; }
+.secao-topo { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; flex-wrap: wrap; margin-bottom: 30px; }
+.secao-topo p { margin: 0; font: 400 15px/1.55 'Archivo', sans-serif; color: rgba(244, 242, 239, .6); max-width: 320px; }
+
+.grade-produtos { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; }
+
+.card-produto {
+  background: var(--carvao);
+  border: 1px solid rgba(244, 242, 239, .09);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: border-color .18s ease, transform .18s ease;
+}
+.card-produto:hover { border-color: var(--vermelho); transform: translateY(-4px); }
+.card-produto-foto { position: relative; background: #0f0f12; }
+.card-produto-foto img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+/* Nestas duas fotos o par está na base do enquadramento original — sem isso o corte central mostra só a prateleira do fundo. */
+.card-produto-foto img.foco-base { object-position: center 78%; }
+.etiqueta {
+  position: absolute; top: 12px; left: 12px;
+  background: var(--vermelho); color: #fff;
+  padding: 7px 11px; border-radius: 100px;
+  font: 700 10px/1 'Space Grotesk', monospace; letter-spacing: .14em; text-transform: uppercase;
+}
+.card-produto-corpo { padding: 18px; display: flex; flex-direction: column; flex: 1; }
+.card-produto-marca { font: 500 10px/1 'Space Grotesk', monospace; letter-spacing: .2em; text-transform: uppercase; color: var(--cinza); }
+.card-produto-nome { font: 400 clamp(19px, 2vw, 24px)/1.05 'Anton', sans-serif; text-transform: uppercase; margin-top: 9px; }
+.card-produto-rodape { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: auto; padding-top: 16px; }
+.preco { font: 700 14px/1 'Archivo', sans-serif; }
+.desconto { font: 700 10px/1 'Space Grotesk', monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--vermelho); border: 1px solid var(--vermelho); border-radius: 100px; padding: 6px 9px; }
+
+.card-insta {
+  background: linear-gradient(135deg, var(--vermelho), #7a0d11);
+  border-radius: 16px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  min-height: 220px;
+  transition: transform .18s ease;
+}
+.card-insta:hover { transform: translateY(-4px); }
+.card-insta-topo { font: 500 11px/1.5 'Space Grotesk', monospace; letter-spacing: .18em; text-transform: uppercase; opacity: .88; }
+.card-insta-chamada { font: 400 clamp(26px, 3vw, 34px)/.98 'Anton', sans-serif; text-transform: uppercase; display: flex; align-items: center; gap: 12px; }
+
+/* ---------- Números ---------- */
+.grade-numeros { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: clamp(48px, 6vw, 64px); }
+.numero { border-top: 2px solid rgba(244, 242, 239, .2); padding-top: 20px; }
+.numero:first-child { border-top-color: var(--vermelho); }
+.numero-valor { font: 400 clamp(34px, 4vw, 44px)/1 'Anton', sans-serif; }
+.numero:first-child .numero-valor { color: var(--vermelho); }
+.numero-titulo { font: 700 16px/1.3 'Archivo', sans-serif; margin-top: 12px; }
+.numero p { margin: 8px 0 0; font: 400 15px/1.55 'Archivo', sans-serif; color: rgba(244, 242, 239, .6); }
+
+/* ---------- Como comprar ---------- */
+.grade-passos { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.passo { background: var(--carvao); border: 1px solid var(--borda); border-radius: 16px; padding: 26px 22px; }
+.passo-numero { font: 400 34px/1 'Anton', sans-serif; color: var(--vermelho); }
+.passo-titulo { font: 700 17px/1.3 'Archivo', sans-serif; margin-top: 14px; }
+.passo p { margin: 8px 0 0; font: 400 15px/1.55 'Archivo', sans-serif; color: rgba(244, 242, 239, .62); }
+
+/* ---------- A loja ---------- */
+.bloco-loja { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; gap: 0; margin-top: clamp(56px, 8vw, 88px); border-top: 1px solid var(--borda); }
+.bloco-loja-midia { position: relative; min-height: 420px; background: var(--grafite); }
+.bloco-loja-midia video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bloco-loja-texto { padding: clamp(40px, 5vw, 64px) clamp(20px, 4vw, 48px); }
+.bloco-loja-texto h2 { margin: 16px 0 0; font: 400 clamp(38px, 4.6vw, 64px)/.92 'Anton', sans-serif; text-transform: uppercase; }
+.bloco-loja-texto h2 span { color: var(--vermelho); }
+.bloco-loja-texto p { margin: 20px 0 0; font: 400 clamp(16px, 1.5vw, 18px)/1.65 'Archivo', sans-serif; color: rgba(244, 242, 239, .74); max-width: 480px; }
+.fichas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+.ficha { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(244, 242, 239, .2); border-radius: 100px; padding: 11px 16px; font: 600 13px/1 'Archivo', sans-serif; }
+
+/* ---------- Onde estamos ---------- */
+.grade-local { display: grid; grid-template-columns: 1.3fr .7fr; gap: 16px; align-items: start; }
+.mapa { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--borda); background: var(--carvao); }
+.mapa iframe { display: block; width: 100%; height: 420px; border: 0; filter: invert(.92) hue-rotate(180deg) saturate(.75) brightness(.95); }
+.mapa-rodape { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 14px 18px; background: var(--carvao); border-top: 1px solid var(--borda); }
+.mapa-credito { font: 400 11px/1.4 'Space Grotesk', monospace; color: #6f6a65; }
+.mapa-credito a { text-decoration: underline; }
+.link-rota { display: inline-flex; align-items: center; gap: 8px; font: 700 14px/1 'Archivo', sans-serif; color: var(--vermelho); }
+
+.coluna-local { display: grid; gap: 16px; }
+.cartao { background: var(--carvao); border: 1px solid var(--borda); border-radius: 16px; padding: 22px; }
+.cartao-rotulo { font: 500 10px/1 'Space Grotesk', monospace; letter-spacing: .2em; text-transform: uppercase; color: var(--cinza); }
+.cartao-valor { font: 600 17px/1.45 'Archivo', sans-serif; margin-top: 10px; }
+.cartao-zap { background: var(--vermelho); border-color: var(--vermelho); color: #fff; display: block; transition: transform .15s ease; }
+.cartao-zap:hover { transform: translateY(-3px); }
+.cartao-zap .cartao-rotulo { color: rgba(255, 255, 255, .85); display: flex; align-items: center; gap: 8px; }
+.cartao-zap .cartao-valor { font: 400 clamp(24px, 2.6vw, 30px)/1 'Anton', sans-serif; text-transform: uppercase; }
+
+.horarios { margin-top: 16px; }
+.horarios-tabela { width: 100%; border-collapse: collapse; margin-top: 16px; }
+.horarios-tabela th { text-align: left; font: 500 10px/1 'Space Grotesk', monospace; letter-spacing: .2em; text-transform: uppercase; color: var(--cinza); padding-bottom: 12px; font-weight: 500; }
+.horarios-tabela th:last-child { text-align: right; }
+.horarios-tabela td { padding: 11px 0; border-top: 1px solid var(--borda); font: 500 15px/1.4 'Archivo', sans-serif; color: rgba(244, 242, 239, .78); }
+.horarios-tabela td:last-child { text-align: right; font-family: 'Space Grotesk', monospace; font-size: 14px; white-space: nowrap; }
+.horarios-tabela tr[data-hoje="true"] td { color: var(--creme); font-weight: 700; }
+.horarios-tabela tr[data-hoje="true"] td:first-child::before { content: "▸ "; color: var(--vermelho); }
+
+/* ---------- CTA final ---------- */
+.cta { margin-top: clamp(64px, 8vw, 88px); padding: clamp(48px, 6vw, 72px) clamp(20px, 4vw, 48px); background: var(--creme); color: var(--preto); display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+.cta h2 { margin: 0; font: 400 clamp(40px, 6vw, 72px)/.9 'Anton', sans-serif; text-transform: uppercase; }
+.cta h2 span { color: var(--vermelho); }
+.cta p { margin: 16px 0 0; font: 400 clamp(16px, 1.6vw, 18px)/1.5 'Archivo', sans-serif; color: #57534e; max-width: 460px; }
+
+/* ---------- Rodapé ---------- */
+.rodape { padding: 30px clamp(20px, 4vw, 48px); display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; font: 500 12px/1.5 'Space Grotesk', monospace; letter-spacing: .1em; text-transform: uppercase; color: #7d7873; }
+.rodape-marca { display: flex; align-items: center; gap: 12px; }
+.rodape-marca img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; }
+.rodape-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.rodape-links a { display: inline-flex; align-items: center; gap: 8px; }
+.rodape-links a:hover { color: var(--creme); }
+
+/* ---------- Botão flutuante ---------- */
+.flutuante {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--vermelho);
+  color: #fff;
+  padding: 15px 22px;
+  border-radius: 100px;
+  font: 700 15px/1 'Archivo', sans-serif;
+  box-shadow: 0 18px 40px -12px rgba(224, 27, 34, .6);
+  transition: transform .15s ease, background .15s ease;
+}
+.flutuante:hover { transform: translateY(-3px); background: var(--vermelho-claro); }
+.flutuante .icone { width: 20px; height: 20px; }
+
+/* ---------- Responsivo ---------- */
+@media (max-width: 1024px) {
+  .grade-local { grid-template-columns: 1fr; }
+  .bloco-loja { grid-template-columns: 1fr; }
+  .bloco-loja-midia { min-height: 340px; }
+}
+
+@media (max-width: 760px) {
+  .navegacao, .cabecalho .botao-zap { display: none; }
+  .hero-nota { max-width: none; }
+  .mapa iframe { height: 300px; }
+  .grade-produtos { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .card-produto-corpo { padding: 14px; }
+  .card-insta { grid-column: span 2; min-height: 0; }
+  .horarios-tabela td { font-size: 14px; }
+  .horarios-tabela td:last-child { font-size: 12.5px; }
+  .flutuante { left: clamp(16px, 3vw, 28px); right: clamp(16px, 3vw, 28px); justify-content: center; }
+  .cta { flex-direction: column; align-items: flex-start; }
+  .cta .botao { width: 100%; }
+}
+</style>
+</head>
+
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-zap" viewBox="0 0 24 24">
+    <path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.01-1.04 2.47s1.06 2.86 1.21 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.41-.07-.13-.27-.2-.57-.35z"/>
+    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.86 9.86 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm0 18.15h-.01a8.2 8.2 0 0 1-4.18-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23a8.24 8.24 0 0 1 0 16.47z"/>
+  </symbol>
+  <symbol id="i-insta" viewBox="0 0 24 24">
+    <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.9 5.9 0 0 0-2.13 1.38A5.9 5.9 0 0 0 .63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13a5.9 5.9 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.9 5.9 0 0 0 2.13-1.38 5.9 5.9 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.9 5.9 0 0 0-1.38-2.13A5.9 5.9 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/>
+    <path d="M12 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/>
+    <circle cx="18.41" cy="5.59" r="1.44"/>
+  </symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24">
+    <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
+  </symbol>
+  <symbol id="i-link" viewBox="0 0 24 24">
+    <path d="M10.6 13.4a1 1 0 0 1 0-1.4l1.4-1.4a1 1 0 0 1 1.4 1.4l-1.4 1.4a1 1 0 0 1-1.4 0z"/>
+    <path d="M8.5 17.5a4 4 0 0 1 0-5.66l2.12-2.12a1 1 0 0 1 1.41 1.41L9.91 13.26a2 2 0 0 0 2.83 2.83l2.12-2.12a1 1 0 1 1 1.41 1.41l-2.12 2.12a4 4 0 0 1-5.65 0z"/>
+    <path d="M15.5 6.5a4 4 0 0 1 0 5.66l-2.12 2.12a1 1 0 0 1-1.41-1.41l2.12-2.13a2 2 0 0 0-2.83-2.83L9.14 10.03a1 1 0 0 1-1.41-1.41l2.12-2.12a4 4 0 0 1 5.65 0z"/>
+  </symbol>
+  <symbol id="i-seta" viewBox="0 0 24 24">
+    <path d="M13.2 5.6 20 12l-6.8 6.4-1.4-1.5 4.2-4H4v-2h12l-4.2-4z"/>
+  </symbol>
+</svg>
+
+<header class="cabecalho">
+  <div class="container cabecalho-linha">
+    <a class="marca" href="#topo">
+      <img src="assets/logo.jpg" alt="Logo da Tênis Head" width="48" height="48" />
+      <span>
+        <span class="marca-nome">Tênis Head</span>
+        <span class="marca-local" style="display:block">Atacado e varejo · São Luís — MA</span>
+      </span>
+    </a>
+
+    <nav class="navegacao">
+      <a href="#destaques">Destaques</a>
+      <a href="#como-comprar">Como comprar</a>
+      <a href="#a-loja">A loja</a>
+      <a href="#onde-estamos">Onde estamos</a>
+    </nav>
+
+    <a class="botao botao-zap" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Vi%20o%20site%20da%20T%C3%AAnis%20Head%20e%20quero%20saber%20sobre%20um%20par." target="_blank" rel="noopener">
+      <svg class="icone" aria-hidden="true"><use href="#i-zap" /></svg>
+      Chamar no WhatsApp
+    </a>
+  </div>
+</header>
+
+<main id="topo">
+
+  <section class="hero">
+    <video src="assets/loja.mp4" poster="assets/loja-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <div class="hero-veu"></div>
+    <div class="container hero-conteudo">
+      <span class="selo" id="selo-status" data-aberto="">
+        <span class="selo-ponto"></span>
+        <span id="selo-texto">Loja física em São Luís · MA</span>
+      </span>
+
+      <h1>Preço justo,<br />qualidade <span>impecável</span></h1>
+      <p>Do jeito que você merece. Sneakers conferidos par por par — leve um par no varejo ou monte sua grade no atacado, e feche direto no WhatsApp.</p>
+
+      <div class="hero-acoes">
+        <a class="botao botao-zap" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Vi%20o%20site%20da%20T%C3%AAnis%20Head%20e%20quero%20saber%20sobre%20um%20par." target="_blank" rel="noopener">
+          <svg class="icone" aria-hidden="true"><use href="#i-zap" /></svg>
+          Ver disponibilidade
+        </a>
+        <a class="botao botao-contorno" href="https://www.instagram.com/tenis__head_" target="_blank" rel="noopener">
+          <svg class="icone" aria-hidden="true"><use href="#i-insta" /></svg>
+          @tenis__head_
+        </a>
+        <span class="hero-nota">Varejo a partir de 1 par · atacado a partir de 2</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-fita">
+      Até 48% OFF ★ Varejo e atacado ★ Originais conferidos ★ Grade a partir de 2 pares ★ São Luís · MA ★
+      Até 48% OFF ★ Varejo e atacado ★ Originais conferidos ★ Grade a partir de 2 pares ★ São Luís · MA ★
+    </div>
+  </div>
+
+  <section class="secao container" id="destaques">
+    <div class="secao-topo">
+      <div>
+        <p class="rotulo">Vitrine atualizada pela loja</p>
+        <h2 class="titulo-secao">Chegou na loja</h2>
+      </div>
+      <p>Os pares abaixo são trocados sempre que chega grade nova. Gostou de algum? Toca no card e fala com a gente.</p>
+    </div>
+
+    <div class="grade-produtos">
+      <a class="card-produto" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Nike%20NOCTA%20Glide%20que%20vi%20no%20site." target="_blank" rel="noopener">
+        <div class="card-produto-foto">
+          <img class="foco-base" src="assets/p-nocta.jpg" alt="Nike NOCTA Glide preto com detalhes vermelhos" loading="lazy" />
+          <span class="etiqueta">Novidade</span>
+        </div>
+        <div class="card-produto-corpo">
+          <span class="card-produto-marca">Nike · lifestyle</span>
+          <span class="card-produto-nome">NOCTA Glide</span>
+          <span class="card-produto-rodape">
+            <span class="preco">Consultar valor</span>
+            <span class="desconto">até 48% OFF</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card-produto" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Adizero%20Adios%20Pro%204%20que%20vi%20no%20site." target="_blank" rel="noopener">
+        <div class="card-produto-foto">
+          <img class="foco-base" src="assets/p-adios-pro4.jpg" alt="adidas Adizero Adios Pro 4 vermelho" loading="lazy" />
+        </div>
+        <div class="card-produto-corpo">
+          <span class="card-produto-marca">adidas · corrida</span>
+          <span class="card-produto-nome">Adizero Adios Pro 4</span>
+          <span class="card-produto-rodape">
+            <span class="preco">Consultar valor</span>
+            <span class="desconto">até 48% OFF</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card-produto" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Tenho%20interesse%20no%20Nike%20ZoomX%20laranja%20que%20vi%20no%20site." target="_blank" rel="noopener">
+        <div class="card-produto-foto">
+          <img src="assets/p-zoomx.jpg" alt="Nike ZoomX laranja com risco preto" loading="lazy" />
+        </div>
+        <div class="card-produto-corpo">
+          <span class="card-produto-marca">Nike · corrida</span>
+          <span class="card-produto-nome">ZoomX</span>
+          <span class="card-produto-rodape">
+            <span class="preco">Consultar valor</span>
+            <span class="desconto">até 48% OFF</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card-produto" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Tenho%20interesse%20na%20chuteira%20Nike%20Mercurial%20que%20vi%20no%20site." target="_blank" rel="noopener">
+        <div class="card-produto-foto">
+          <img src="assets/p-mercurial.jpg" alt="Chuteira Nike Mercurial branca com detalhes roxos" loading="lazy" />
+        </div>
+        <div class="card-produto-corpo">
+          <span class="card-produto-marca">Nike · campo</span>
+          <span class="card-produto-nome">Mercurial</span>
+          <span class="card-produto-rodape">
+            <span class="preco">Consultar valor</span>
+            <span class="desconto">até 48% OFF</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card-insta" href="https://www.instagram.com/tenis__head_" target="_blank" rel="noopener">
+        <span class="card-insta-topo">
+          <svg class="icone" style="width:16px;height:16px;vertical-align:-3px" aria-hidden="true"><use href="#i-insta" /></svg>
+          248 posts · 9,3 mil seguidores
+        </span>
+        <span class="card-insta-chamada">
+          Todo o estoque no Instagram
+          <svg class="icone" style="width:26px;height:26px" aria-hidden="true"><use href="#i-seta" /></svg>
+        </span>
+      </a>
+    </div>
+
+    <div class="grade-numeros">
+      <div class="numero">
+        <div class="numero-valor">48%</div>
+        <div class="numero-titulo">Até 48% OFF nos pares selecionados</div>
+        <p>Condição confirmada na conversa, sem pegadinha.</p>
+      </div>
+      <div class="numero">
+        <div class="numero-valor">1 ou 2+</div>
+        <div class="numero-titulo">Varejo de 1 par, atacado a partir de 2</div>
+        <p>Levou mais de um? O preço muda na hora.</p>
+      </div>
+      <div class="numero">
+        <div class="numero-valor">1:1</div>
+        <div class="numero-titulo">Atendimento direto com a loja</div>
+        <p>Sem carrinho, sem robô: você fala com quem vende.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao container" id="como-comprar">
+    <p class="rotulo">Como comprar</p>
+    <h2 class="titulo-secao" style="margin-bottom:30px">Simples assim</h2>
+
+    <div class="grade-passos">
+      <div class="passo">
+        <div class="passo-numero">01</div>
+        <div class="passo-titulo">Escolha o par</div>
+        <p>Aqui na vitrine ou no Instagram, onde fica o estoque completo e as grades novas.</p>
+      </div>
+      <div class="passo">
+        <div class="passo-numero">02</div>
+        <div class="passo-titulo">Chama no WhatsApp</div>
+        <p>Manda o print do modelo que você quer. Você fala com quem vende, não com robô.</p>
+      </div>
+      <div class="passo">
+        <div class="passo-numero">03</div>
+        <div class="passo-titulo">Confirma tudo</div>
+        <p>Tamanho disponível, foto real do par e o valor já com o desconto que couber.</p>
+      </div>
+      <div class="passo">
+        <div class="passo-numero">04</div>
+        <div class="passo-titulo">Retira ou recebe</div>
+        <p>Retira na loja, na Av. Sol Nascente, ou combina o envio direto na conversa.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="bloco-loja" id="a-loja">
+      <div class="bloco-loja-midia">
+        <video src="assets/dono.mp4" poster="assets/dono-poster.jpg" autoplay muted loop playsinline preload="none"></video>
+      </div>
+      <div class="bloco-loja-texto">
+        <p class="rotulo">A loja</p>
+        <h2>Uma parede<br />inteira de<br /><span>par bom</span></h2>
+        <p>A Tênis Head é loja física em São Luís, com uma parede inteira de tênis pra você ver, pegar e experimentar antes de levar. Cada par que entra é conferido antes de ir pra prateleira — é isso que sustenta o "preço justo, qualidade impecável".</p>
+        <p>Atende quem quer um par só e quem monta grade pra revender, com a mesma atenção. Você fala direto com quem está na loja, do primeiro "oi" até o par na sua mão.</p>
+        <div class="fichas">
+          <span class="ficha">
+            <svg class="icone" aria-hidden="true"><use href="#i-pin" /></svg>
+            Vila Luizão · São Luís — MA
+          </span>
+          <span class="ficha" id="ficha-horario">Seg a sáb · 08:30–12:00 e 14:30–19:30</span>
+          <a class="ficha" href="https://www.instagram.com/tenis__head_" target="_blank" rel="noopener">
+            <svg class="icone" aria-hidden="true"><use href="#i-insta" /></svg>
+            @tenis__head_
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="secao container" id="onde-estamos">
+    <p class="rotulo">Onde estamos</p>
+    <h2 class="titulo-secao" style="margin-bottom:30px">Vem conhecer</h2>
+
+    <div class="grade-local">
+      <div class="mapa">
+        <iframe
+          title="Mapa da Tênis Head na Av. Sol Nascente, São Luís"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=-44.2183237%2C-2.4944453%2C-44.2123237%2C-2.4914453&amp;layer=mapnik&amp;marker=-2.4929453%2C-44.2153237"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="mapa-rodape">
+          <span class="mapa-credito">Mapa © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></span>
+          <a class="link-rota" href="https://www.google.com/maps/place/T%C3%AAnis+head/@-2.4930922,-44.2154497,19.2z/data=!4m6!3m5!1s0x7f6930009136d2d:0x4ef7963695032609!8m2!3d-2.4929453!4d-44.2153237" target="_blank" rel="noopener">
+            Traçar rota no Google Maps
+            <svg class="icone" aria-hidden="true"><use href="#i-seta" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="coluna-local">
+        <div class="cartao">
+          <div class="cartao-rotulo">Endereço</div>
+          <div class="cartao-valor">Av. Sol Nascente, 100<br />Vila Luizão · São Luís — MA<br />CEP 65068-212</div>
+        </div>
+        <a class="cartao cartao-zap" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Vi%20o%20site%20da%20T%C3%AAnis%20Head%20e%20quero%20saber%20sobre%20um%20par." target="_blank" rel="noopener">
+          <div class="cartao-rotulo">
+            <svg class="icone" aria-hidden="true"><use href="#i-zap" /></svg>
+            WhatsApp
+          </div>
+          <div class="cartao-valor">(98) 99162-2057</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="cartao horarios">
+      <div class="cartao-rotulo">Funcionamento</div>
+      <table class="horarios-tabela">
+        <thead>
+          <tr><th scope="col">Dia</th><th scope="col">Horário</th></tr>
+        </thead>
+        <tbody id="corpo-horarios"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="container">
+    <div class="cta">
+      <div>
+        <h2>Achou seu par?<br /><span>Chama agora.</span></h2>
+        <p>Respondemos rápido no WhatsApp com foto real, tamanhos disponíveis e valor já com desconto.</p>
+      </div>
+      <a class="botao botao-escuro" style="padding:22px 34px;font-size:17px" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Vi%20o%20site%20da%20T%C3%AAnis%20Head%20e%20quero%20saber%20sobre%20um%20par." target="_blank" rel="noopener">
+        <svg class="icone" style="width:20px;height:20px" aria-hidden="true"><use href="#i-zap" /></svg>
+        WhatsApp (98) 99162-2057
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="container rodape">
+    <span class="rodape-marca">
+      <img src="assets/logo.jpg" alt="" width="36" height="36" />
+      Tênis Head · Atacado e varejo · São Luís — MA
+    </span>
+    <span class="rodape-links">
+      <a href="https://wa.me/5598991622057" target="_blank" rel="noopener">
+        <svg class="icone" aria-hidden="true"><use href="#i-zap" /></svg> WhatsApp
+      </a>
+      <a href="https://www.instagram.com/tenis__head_" target="_blank" rel="noopener">
+        <svg class="icone" aria-hidden="true"><use href="#i-insta" /></svg> @tenis__head_
+      </a>
+      <a href="https://fans.link/tenishead" target="_blank" rel="noopener">
+        <svg class="icone" aria-hidden="true"><use href="#i-link" /></svg> fans.link/tenishead
+      </a>
+    </span>
+  </div>
+  <div class="faixa-listrada"></div>
+</footer>
+
+<a class="flutuante" href="https://wa.me/5598991622057?text=Ol%C3%A1!%20Vi%20o%20site%20da%20T%C3%AAnis%20Head%20e%20quero%20saber%20sobre%20um%20par." target="_blank" rel="noopener">
+  <svg class="icone" aria-hidden="true"><use href="#i-zap" /></svg>
+  Chamar no WhatsApp
+</a>
+
+<script>
+const FUSO_LOJA = 'America/Fortaleza';
+
+const DIAS = [
+  { nome: 'Domingo', turnos: [['08:30', '12:00']] },
+  { nome: 'Segunda', turnos: [['08:30', '12:00'], ['14:30', '19:30']] },
+  { nome: 'Terça',   turnos: [['08:30', '12:00'], ['14:00', '19:30']] },
+  { nome: 'Quarta',  turnos: [['08:30', '12:00'], ['14:30', '19:30']] },
+  { nome: 'Quinta',  turnos: [['08:30', '12:00'], ['14:30', '19:30']] },
+  { nome: 'Sexta',   turnos: [['08:30', '12:00'], ['14:30', '19:30']] },
+  { nome: 'Sábado',  turnos: [['08:30', '12:00'], ['14:30', '19:30']] }
+];
+
+const INDICE_POR_DIA = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+
+function emMinutos(hora) {
+  const [h, m] = hora.split(':').map(Number);
+  return h * 60 + m;
+}
+
+function momentoNaLoja() {
+  const formatador = new Intl.DateTimeFormat('en-US', {
+    timeZone: FUSO_LOJA, weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false
+  });
+  const partes = Object.fromEntries(formatador.formatToParts(new Date()).map(p => [p.type, p.value]));
+  return { dia: INDICE_POR_DIA[partes.weekday], minutos: Number(partes.hour) * 60 + Number(partes.minute) };
+}
+
+function proximaAbertura(dia) {
+  for (let salto = 1; salto <= 7; salto++) {
+    const indice = (dia + salto) % 7;
+    if (DIAS[indice].turnos.length) {
+      const prefixo = salto === 1 ? 'amanhã' : DIAS[indice].nome.toLowerCase();
+      return `Fechado · abre ${prefixo} às ${DIAS[indice].turnos[0][0]}`;
+    }
+  }
+}
+
+function situacao({ dia, minutos }) {
+  const turnos = DIAS[dia].turnos;
+
+  for (const [abre, fecha] of turnos) {
+    if (minutos < emMinutos(abre)) return { aberto: false, texto: `Fechado · abre às ${abre}` };
+    if (minutos < emMinutos(fecha)) return { aberto: true, texto: `Aberto agora · fecha às ${fecha}` };
+  }
+
+  return { aberto: false, texto: proximaAbertura(dia) };
+}
+
+function descreverTurnos(turnos) {
+  return turnos.map(([abre, fecha]) => `${abre}–${fecha}`).join(' · ');
+}
+
+function montarTabela(diaDeHoje) {
+  const corpo = document.getElementById('corpo-horarios');
+  const ordemDaSemana = [1, 2, 3, 4, 5, 6, 0];
+
+  corpo.innerHTML = ordemDaSemana.map(indice => {
+    const { nome, turnos } = DIAS[indice];
+    const hoje = indice === diaDeHoje ? ' data-hoje="true"' : '';
+    return `<tr${hoje}><td>${nome}</td><td>${descreverTurnos(turnos)}</td></tr>`;
+  }).join('');
+}
+
+function pintarSelo({ aberto, texto }) {
+  document.getElementById('selo-status').dataset.aberto = String(aberto);
+  document.getElementById('selo-texto').textContent = texto;
+}
+
+function atualizar() {
+  const momento = momentoNaLoja();
+  pintarSelo(situacao(momento));
+  montarTabela(momento.dia);
+}
+
+atualizar();
+setInterval(atualizar, 60000);
+</script>
+
+</body>
+</html>
