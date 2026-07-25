@@ -1,5 +1,5 @@
 import { listarVitrine } from '@/core/produtos/casos-de-uso';
-import { criarRepositorioEmMemoria } from '@/infra/produtos/repositorio-em-memoria';
+import { repositorioDeProdutos } from '@/infra/produtos/fabrica';
 import { ALoja } from '@/ui/secoes/a-loja';
 import { Cabecalho } from '@/ui/secoes/cabecalho';
 import { ComoComprar } from '@/ui/secoes/como-comprar';
@@ -10,7 +10,7 @@ import { Ticker } from '@/ui/secoes/ticker';
 import { Vitrine } from '@/ui/secoes/vitrine';
 
 export default async function Home() {
-  const produtos = await listarVitrine(criarRepositorioEmMemoria());
+  const produtos = await listarVitrine(repositorioDeProdutos());
 
   return (
     <>

@@ -1,88 +1,89 @@
-# Tênis Head — site
+# Tênis Head
 
-Site institucional de uma página da **Tênis Head**, loja de atacado e varejo de tênis em
-São Luís — MA. HTML, CSS e JavaScript puros, sem build e sem dependências.
+Site e painel de gestão de uma loja de tênis real em São Luís — MA, que vende no varejo e no
+atacado e fecha todas as vendas pelo WhatsApp.
 
-No ar em **https://tenis-head-site.vercel.app**
+**[tenishead.com.br](https://tenishead.com.br)** · Next.js 16 · React 19 · TypeScript · Tailwind 4 · Supabase
 
-Todo caminho de conversão leva ao WhatsApp da loja: não há carrinho, checkout nem backend.
+<!-- prints entram aqui -->
 
-## Rodar local
+## O problema
+
+A loja tinha Instagram e uma ficha no Google Maps preenchida por terceiros, com o número errado.
+Quem procurava no Google não achava horário, endereço confiável nem um jeito rápido de falar com
+alguém. E, como toda venda acontece no WhatsApp, qualquer atrito antes da conversa é venda perdida.
+
+O site precisava resolver três coisas: existir na busca local, responder as perguntas que o cliente
+faz antes de comprar (abre agora? onde fica? como funciona?), e levar para o WhatsApp em um toque.
+Além disso, o dono precisava trocar as fotos da vitrine sozinho, sem depender de mim.
+
+## Decisões
+
+### O domínio não conhece o framework
+
+`src/core` não importa nada de Next nem de Supabase. Só entidades, portas e casos de uso.
+
+```
+src/
+  core/      regra de negócio pura — não sabe que existe HTTP, React ou banco
+  infra/     adaptadores que implementam as portas do core
+  ui/        componentes de apresentação
+  app/       rotas do Next
+```
+
+O ganho concreto aparece nos testes: a regra de horário roda em milissegundos, sem subir
+aplicação nem banco. E a home funciona com o repositório em memória enquanto o Supabase não
+estiver configurado, porque quem consome depende da porta, não da implementação.
+
+### Horário é regra de negócio, não formatação
+
+O site mostra "Aberto agora · fecha às 19:30" em tempo real. Parece detalhe, mas concentra as
+regras chatas: dois turnos por dia, terça abrindo 14:00 enquanto os outros dias abrem 14:30,
+domingo só de manhã, e a virada de meia-noite.
+
+O cálculo é sempre feito no fuso da loja (`America/Fortaleza`), nunca no de quem visita. Sem isso,
+alguém abrindo o site de Portugal veria "aberto agora" às 3 da manhã.
+
+São 21 testes, entre eles uma varredura dos **10.080 minutos da semana** comparando o resultado
+com um modelo independente. Foi assim que apareceu o bug que estava no ar: um texto fixo dizia
+"seg a sáb" enquanto a loja abre domingo de manhã.
+
+### Estático por padrão, dinâmico só onde precisa
+
+A home inteira é pré-renderizada. O único JavaScript que roda no cliente é o do selo de horário, a
+tabela e o controle de som dos vídeos. O painel fica atrás de auth e fora do índice de busca.
+
+### Peso importa mais que stack
+
+O público acessa por celular, muitas vezes em 4G. As fotos são recortadas no upload na mesma
+proporção em que o card as exibe, para não trafegar pixel que nunca é pintado, e os vídeos foram
+reduzidos de 174 MB para 2,5 MB. O primeiro carregamento é de cerca de 1,2 MB.
+
+### O painel evita custo em vez de escalar
+
+Uma loja de bairro tem dezenas de fotos, não milhares. Com o recorte para 600×750 no upload,
+40 produtos ocupam cerca de 2 MB — o free tier do Supabase (1 GB) nunca é atingido. A escolha foi
+deliberada: manter o custo mensal em zero para o dono, que já paga o domínio.
+
+## Rodar
 
 ```bash
-python3 -m http.server 8000
-# abre http://localhost:8000
+nvm use            # Node 22
+npm install
+npm run dev
 ```
 
-## Estrutura
-
-```
-index.html          página inteira (markup + estilos + script)
-assets/             logo, fotos dos produtos, vídeos e posters
-robots.txt
-sitemap.xml
-```
-
-## Trocar as fotos da vitrine
-
-As fotos já vêm recortadas em **4:5** e a **600x750**. Mantenha essa proporção ao
-substituir: o card usa `aspect-ratio: 4/5` e uma foto vertical de celular (9:16) perde
-30% da altura no corte, normalmente cortando justo o par.
+O site sobe sem nenhuma configuração, usando a vitrine inicial do código. Para habilitar o painel,
+copie `.env.example` para `.env.local`, preencha com as chaves do seu projeto Supabase e rode
+`supabase/schema.sql` no SQL Editor.
 
 ```bash
-ffmpeg -i foto-original.jpg \
-  -vf "crop=iw:iw*1.25:0:(ih-iw*1.25)*0.5,scale=600:750" -q:v 6 assets/p-nome.jpg
+npm test           # 21 testes da regra de negócio
+npm run typecheck  # TypeScript estrito, sem any
+npm run build
 ```
 
-O `0.5` no fim é a posição vertical do recorte. Se o tênis estiver na parte de baixo do
-enquadramento, use `0.78`.
+## Documentação
 
-## Duas armadilhas que já custaram bug aqui
-
-- **Não escreva horário à mão no HTML.** A fonte é o array `DIAS`, no script. Já houve um
-  chip fixo dizendo "Seg a sáb" enquanto a tabela logo abaixo mostrava a loja aberta no
-  domingo.
-- **Cuidado com `padding` shorthand** em quem também usa `.container`. O shorthand
-  reescreve os quatro lados e zera o padding lateral herdado, encostando a seção na borda.
-  Se precisar mexer só no vertical, use `padding-top` / `padding-bottom`.
-
-## Dados da loja
-
-| Campo | Valor | Fonte |
-| --- | --- | --- |
-| WhatsApp | (98) 99162-2057 | perfil WhatsApp Business |
-| Endereço | Av. Sol Nascente, 100 — Vila Luizão, São Luís/MA, 65068-212 | perfil WhatsApp Business |
-| Instagram | [@tenis\_\_head\_](https://www.instagram.com/tenis__head_) | conta vinculada ao WhatsApp |
-| Link-bio | fans.link/tenishead | bio do Instagram |
-| Google Maps | [ficha](https://www.google.com/maps/place/T%C3%AAnis+head/@-2.4930922,-44.2154497,19.2z) | — |
-
-O horário de funcionamento fica em `DIAS`, no script ao fim do `index.html`. O selo
-"Aberto agora" é calculado sempre no fuso de São Luís (`America/Fortaleza`), não no fuso
-de quem visita — sem isso, um visitante de outro país veria o status errado.
-
-## Mídia
-
-Os vídeos foram cortados para tirar a interface do Instagram gravada junto e reduzidos de
-174 MB para 2,5 MB no total. O trecho do hero foi escolhido numa janela sem as legendas do
-reels. Para trocar um vídeo mantendo o mesmo tratamento:
-
-```bash
-ffmpeg -ss <segundo_inicial> -i entrada.mov -t <duracao> \
-  -vf "crop=in_w:in_h-150:0:0,scale=540:-2,fps=30" -an \
-  -c:v libx264 -crf 31 -preset slow -pix_fmt yuv420p -movflags +faststart \
-  assets/loja.mp4
-```
-
-O `crop=in_w:in_h-150` remove a barra de interface do Instagram no rodapé da gravação.
-
-## Pendências para confirmar com a loja
-
-- **Formas de pagamento e prazo de entrega** — não estão no site porque não havia fonte;
-  hoje o passo 4 de "Como comprar" só diz que é combinado na conversa.
-- **Preços** — os cards mostram "Consultar valor" em vez de valor cheio.
-- **Modelo exato** do Nike ZoomX e da chuteira Mercurial — identificados pela foto,
-  vale confirmar a nomenclatura completa.
-- **Conta `tenis_sneakerss`** — aparece no campo de link do WhatsApp Business, mas o site
-  usa apenas `@tenis__head_`, que é a conta vinculada ao perfil.
-- **Ficha do Google Maps** — não foi reivindicada pelo dono e traz o número 9 em vez de
-  100. Reivindicar é grátis e corrige o endereço para quem chega pela busca.
+- [Operação do site](docs/operacao.md) — trocar fotos, encodar vídeos, editar horários
+- [Dados da loja e fontes](docs/dados-da-loja.md) — de onde veio cada informação publicada
