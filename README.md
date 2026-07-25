@@ -3,6 +3,8 @@
 Site institucional de uma página da **Tênis Head**, loja de atacado e varejo de tênis em
 São Luís — MA. HTML, CSS e JavaScript puros, sem build e sem dependências.
 
+No ar em **https://tenis-head-site.vercel.app**
+
 Todo caminho de conversão leva ao WhatsApp da loja: não há carrinho, checkout nem backend.
 
 ## Rodar local
@@ -17,7 +19,32 @@ python3 -m http.server 8000
 ```
 index.html          página inteira (markup + estilos + script)
 assets/             logo, fotos dos produtos, vídeos e posters
+robots.txt
+sitemap.xml
 ```
+
+## Trocar as fotos da vitrine
+
+As fotos já vêm recortadas em **4:5** e a **600x750**. Mantenha essa proporção ao
+substituir: o card usa `aspect-ratio: 4/5` e uma foto vertical de celular (9:16) perde
+30% da altura no corte, normalmente cortando justo o par.
+
+```bash
+ffmpeg -i foto-original.jpg \
+  -vf "crop=iw:iw*1.25:0:(ih-iw*1.25)*0.5,scale=600:750" -q:v 6 assets/p-nome.jpg
+```
+
+O `0.5` no fim é a posição vertical do recorte. Se o tênis estiver na parte de baixo do
+enquadramento, use `0.78`.
+
+## Duas armadilhas que já custaram bug aqui
+
+- **Não escreva horário à mão no HTML.** A fonte é o array `DIAS`, no script. Já houve um
+  chip fixo dizendo "Seg a sáb" enquanto a tabela logo abaixo mostrava a loja aberta no
+  domingo.
+- **Cuidado com `padding` shorthand** em quem também usa `.container`. O shorthand
+  reescreve os quatro lados e zera o padding lateral herdado, encostando a seção na borda.
+  Se precisar mexer só no vertical, use `padding-top` / `padding-bottom`.
 
 ## Dados da loja
 
@@ -36,14 +63,17 @@ de quem visita — sem isso, um visitante de outro país veria o status errado.
 ## Mídia
 
 Os vídeos foram cortados para tirar a interface do Instagram gravada junto e reduzidos de
-174 MB para ~4,5 MB no total. Para trocar um vídeo mantendo o mesmo tratamento:
+174 MB para 2,5 MB no total. O trecho do hero foi escolhido numa janela sem as legendas do
+reels. Para trocar um vídeo mantendo o mesmo tratamento:
 
 ```bash
 ffmpeg -ss <segundo_inicial> -i entrada.mov -t <duracao> \
-  -vf "crop=in_w:in_h-150:0:0,scale=720:-2,fps=30" -an \
-  -c:v libx264 -crf 30 -preset slow -pix_fmt yuv420p -movflags +faststart \
+  -vf "crop=in_w:in_h-150:0:0,scale=540:-2,fps=30" -an \
+  -c:v libx264 -crf 31 -preset slow -pix_fmt yuv420p -movflags +faststart \
   assets/loja.mp4
 ```
+
+O `crop=in_w:in_h-150` remove a barra de interface do Instagram no rodapé da gravação.
 
 ## Pendências para confirmar com a loja
 
