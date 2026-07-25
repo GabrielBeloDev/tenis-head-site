@@ -10,6 +10,14 @@ import { clienteDoServidor } from '@/infra/supabase/cliente';
 import { criarRepositorioSupabase } from '@/infra/supabase/repositorio-de-produtos';
 
 const TAMANHO_MAXIMO = 8 * 1024 * 1024;
+const FORMATOS_ACEITOS = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
+
+// Server Action é uma entrada HTTP própria: proteger só a rota no middleware não a cobre.
+async function exigirSessao(): Promise<void> {
+  const supabase = await clienteDoServidor();
+  const { data } = await supabase.auth.getUser();
+  if (data.user === null) throw new Error('Não autorizado');
+}
 
 const esquemaDoProduto = z.object({
   nome: z.string().trim().min(2, 'Informe o nome do modelo'),
@@ -23,7 +31,7 @@ const esquemaDaImagem = z
   .instanceof(File)
   .refine((arquivo) => arquivo.size > 0, 'Escolha uma foto')
   .refine((arquivo) => arquivo.size <= TAMANHO_MAXIMO, 'A foto precisa ter no máximo 8 MB')
-  .refine((arquivo) => arquivo.type.startsWith('image/'), 'O arquivo precisa ser uma imagem');
+  .refine((arquivo) => FORMATOS_ACEITOS.includes(arquivo.type), 'Envie a foto em JPEG, PNG, WebP ou AVIF');
 
 export type ResultadoDaAcao = { erro: string } | { sucesso: true };
 
@@ -57,6 +65,8 @@ export async function salvarProduto(
   _anterior: ResultadoDaAcao | null,
   dados: FormData,
 ): Promise<ResultadoDaAcao> {
+  await exigirSessao();
+
   const campos = esquemaDoProduto.safeParse({
     nome: dados.get('nome'),
     marca: dados.get('marca'),
@@ -79,7 +89,7 @@ export async function salvarProduto(
 
   try {
     const imagem = enviarImagem
-      ? await criarArmazenamentoSupabase().enviar(arquivo as File, campos.data.nome.toLowerCase().replace(/\s+/g, '-'))
+      ? await criarArmazenamentoSupabase().enviar(arquivo, crypto.randomUUID())
       : null;
 
     if (typeof id === 'string' && id !== '') {
@@ -89,7 +99,9 @@ export async function salvarProduto(
       await cadastrarProduto(repositorio, { ...campos.data, imagem });
     }
   } catch (erro) {
-    return { erro: erro instanceof Error ? erro.message : 'Não foi possível salvar' };
+    // Mensagem do Postgres expõe tabela e política, e não diz nada útil para quem está no painel.
+    console.error('Falha ao salvar produto', erro);
+    return { erro: 'Não foi possível salvar. Tente de novo.' };
   }
 
   revalidatePath('/');
@@ -98,8 +110,10 @@ export async function salvarProduto(
 }
 
 export async function excluirProduto(dados: FormData): Promise<void> {
+  await exigirSessao();
+
   const id = dados.get('id');
-  if (typeof id !== 'string' || id === '') return;
+  if (typeof id !== 'string' || id === '') throw new Error('Produto não informado');
 
   await removerProduto(criarRepositorioSupabase(), criarArmazenamentoSupabase(), id);
   revalidatePath('/');

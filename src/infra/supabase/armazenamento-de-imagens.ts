@@ -17,8 +17,7 @@ export function criarArmazenamentoSupabase(): ArmazenamentoDeImagens {
 
     async remover(url) {
       const supabase = await clienteDoServidor();
-      const caminho = url.split(`/${BALDE}/`).at(-1);
-      if (caminho === undefined) return;
+      const caminho = url.split(`/${BALDE}/`).slice(1).join(`/${BALDE}/`);
 
       const { error } = await supabase.storage.from(BALDE).remove([caminho]);
       if (error !== null) throw new Error(`Falha ao remover a imagem: ${error.message}`);

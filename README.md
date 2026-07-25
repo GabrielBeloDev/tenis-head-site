@@ -61,9 +61,12 @@ reduzidos de 174 MB para 2,5 MB. O primeiro carregamento é de cerca de 1,2 MB.
 
 ### O painel evita custo em vez de escalar
 
-Uma loja de bairro tem dezenas de fotos, não milhares. Com o recorte para 600×750 no upload,
-40 produtos ocupam cerca de 2 MB — o free tier do Supabase (1 GB) nunca é atingido. A escolha foi
-deliberada: manter o custo mensal em zero para o dono, que já paga o domínio.
+Uma loja de bairro tem dezenas de fotos, não milhares. O recorte para 600×750 acontece no
+navegador, antes do upload: uma foto de celular de 4 MB vira cerca de 60 KB, e o que sobe é
+exatamente o que o card desenha. Com isso 40 produtos ocupam poucos megabytes e o free tier do
+Supabase (1 GB) nunca é atingido.
+
+A escolha foi deliberada: manter o custo mensal em zero para o dono, que já paga o domínio.
 
 ## Rodar
 

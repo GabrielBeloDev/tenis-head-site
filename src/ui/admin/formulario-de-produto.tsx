@@ -1,8 +1,9 @@
 'use client';
 
-import { useActionState } from 'react';
+import { useActionState, useState } from 'react';
 import { CATEGORIAS, type Produto } from '@/core/produtos/produto';
 import { salvarProduto, type ResultadoDaAcao } from '@/app/admin/acoes';
+import { recortarParaVitrine, type PosicaoDoCorte } from '@/infra/imagem/recortar-para-vitrine';
 
 type PropsDoFormulario = Readonly<{
   produto?: Produto;
@@ -13,8 +14,16 @@ type PropsDoFormulario = Readonly<{
 const CAMPO = 'w-full rounded-xl border border-creme/15 bg-carvao px-4 py-3 text-[15px] outline-none focus:border-vermelho-claro';
 
 export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: PropsDoFormulario) {
+  const [posicaoDoCorte, setPosicaoDoCorte] = useState<PosicaoDoCorte>('centro');
+
   const [resultado, executar, enviando] = useActionState<ResultadoDaAcao | null, FormData>(
     async (anterior, dados) => {
+      // Recorta antes de subir: foto de celular sobe ~4 MB e só ~200 KB seriam pintados no card.
+      const escolhida = dados.get('imagem');
+      if (escolhida instanceof File && escolhida.size > 0) {
+        dados.set('imagem', await recortarParaVitrine(escolhida, posicaoDoCorte));
+      }
+
       const saida = await salvarProduto(anterior, dados);
       if ('sucesso' in saida) aoConcluir?.();
       return saida;
@@ -66,9 +75,25 @@ export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: P
         </span>
         <input name="imagem" type="file" accept="image/*" className={`${CAMPO} file:mr-3 file:rounded-full file:border-0 file:bg-vermelho file:px-4 file:py-1.5 file:text-sm file:font-semibold file:text-white`} />
         <span className="text-xs text-creme/50">
-          A foto é exibida em 4:5. Foto de celular na vertical perde as bordas de cima e de baixo no corte.
+          A foto é recortada em 4:5 antes de subir. Pode mandar direto do celular.
         </span>
       </label>
+
+      <fieldset className="flex flex-wrap items-center gap-4">
+        <legend className="mb-2 text-sm font-semibold">Posição do recorte</legend>
+        {(['centro', 'base'] as const).map((posicao) => (
+          <label key={posicao} className="flex items-center gap-2 text-sm">
+            <input
+              type="radio"
+              name="posicaoDoCorte"
+              checked={posicaoDoCorte === posicao}
+              onChange={() => setPosicaoDoCorte(posicao)}
+              className="size-4 accent-[#e01b22]"
+            />
+            {posicao === 'centro' ? 'Pelo centro' : 'O par está embaixo na foto'}
+          </label>
+        ))}
+      </fieldset>
 
       <label className="flex items-center gap-3">
         <input name="destaque" type="checkbox" defaultChecked={produto?.destaque ?? true} className="size-4 accent-[#e01b22]" />

@@ -2,11 +2,11 @@
 
 ## Trocar as fotos da vitrine
 
-Pelo painel em `/admin`. As fotos são exibidas em 4:5, então envie já nessa proporção ou aceite que
-uma foto vertical de celular (9:16) perde cerca de 30% da altura no corte, normalmente cortando
-justo o par.
+Pelo painel em `/admin`. O recorte para 4:5 e 600x750 acontece no navegador antes do upload, então
+pode enviar a foto direto do celular. Se o par estiver na parte de baixo do enquadramento, escolha
+"base" no seletor de recorte, senão o corte central pega só o fundo.
 
-Para preparar uma foto na mão:
+Para preparar uma foto fora do painel:
 
 ```bash
 ffmpeg -i foto-original.jpg \

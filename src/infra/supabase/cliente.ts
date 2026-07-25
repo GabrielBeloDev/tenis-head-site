@@ -38,7 +38,7 @@ export async function clienteDoServidor() {
     cookies: {
       getAll: () => armazenamentoDeCookies.getAll(),
       setAll: (aDefinir) => {
-        // Server Components não podem escrever cookie; o middleware renova a sessão.
+        // Server Components cannot write cookies; the middleware refreshes the session.
         try {
           aDefinir.forEach(({ name, value, options }) => armazenamentoDeCookies.set(name, value, options));
         } catch {

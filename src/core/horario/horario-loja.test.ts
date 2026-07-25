@@ -3,6 +3,7 @@ import {
   descreverSituacao,
   descreverTurnos,
   emMinutos,
+  estaAberta,
   situacaoEm,
   type DiaDaSemana,
   type Semana,
@@ -46,12 +47,12 @@ describe('situação da loja ao longo do dia', () => {
 
 describe('exceções que já causaram informação errada no site', () => {
   it('abre 14:00 na terça, e não 14:30 como nos outros dias', () => {
-    expect(situacaoAs(TERCA, '14:10')).toEqual({ aberto: true, fechaAs: '19:30' });
-    expect(situacaoAs(SEGUNDA, '14:10')).toMatchObject({ aberto: false, abreAs: '14:30' });
+    expect(situacaoAs(TERCA, '14:10')).toEqual({ tipo: 'aberto', fechaAs: '19:30' });
+    expect(situacaoAs(SEGUNDA, '14:10')).toEqual({ tipo: 'fecha-e-reabre-hoje', abreAs: '14:30' });
   });
 
   it('abre domingo de manhã, ao contrário do que dizia o texto fixo antigo', () => {
-    expect(situacaoAs(DOMINGO, '10:00')).toEqual({ aberto: true, fechaAs: '12:00' });
+    expect(situacaoAs(DOMINGO, '10:00')).toEqual({ tipo: 'aberto', fechaAs: '12:00' });
   });
 
   it('fecha domingo à tarde e aponta para segunda', () => {
@@ -65,12 +66,12 @@ describe('exceções que já causaram informação errada no site', () => {
 
 describe('bordas dos turnos', () => {
   it('considera aberta no minuto exato da abertura', () => {
-    expect(situacaoAs(SEGUNDA, '08:30').aberto).toBe(true);
+    expect(estaAberta(situacaoAs(SEGUNDA, '08:30'))).toBe(true);
   });
 
   it('considera fechada no minuto exato do fechamento', () => {
-    expect(situacaoAs(SEGUNDA, '12:00').aberto).toBe(false);
-    expect(situacaoAs(SEGUNDA, '19:30').aberto).toBe(false);
+    expect(estaAberta(situacaoAs(SEGUNDA, '12:00'))).toBe(false);
+    expect(estaAberta(situacaoAs(SEGUNDA, '19:30'))).toBe(false);
   });
 });
 
@@ -80,7 +81,7 @@ describe('varredura da semana inteira', () => {
 
     for (const dia of [0, 1, 2, 3, 4, 5, 6] as const) {
       for (let minutos = 0; minutos < 1440; minutos++) {
-        const calculado = situacaoEm(SEMANA_DA_LOJA, { dia, minutos }).aberto;
+        const calculado = estaAberta(situacaoEm(SEMANA_DA_LOJA, { dia, minutos }));
         const esperado = SEMANA_DA_LOJA[dia].turnos.some(
           (turno) => minutos >= as(turno.abre) && minutos < as(turno.fecha),
         );
@@ -136,7 +137,7 @@ describe('conversão do relógio para o fuso da loja', () => {
     // 23:30Z is Saturday 20:30 in São Luís (UTC-3), after closing.
     const momento = momentoNaLoja(new Date('2026-07-25T23:30:00Z'));
     expect(momento).toEqual({ dia: SABADO, minutos: 20 * 60 + 30 });
-    expect(situacaoEm(SEMANA_DA_LOJA, momento).aberto).toBe(false);
+    expect(estaAberta(situacaoEm(SEMANA_DA_LOJA, momento))).toBe(false);
   });
 
   it('vira o dia junto com o fuso da loja, e não com o UTC', () => {

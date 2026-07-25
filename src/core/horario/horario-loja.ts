@@ -15,8 +15,14 @@ export type MomentoNaLoja = Readonly<{
 }>;
 
 export type Situacao =
-  | Readonly<{ aberto: true; fechaAs: string }>
-  | Readonly<{ aberto: false; abreAs: string; nesteDia: boolean; diaQueAbre: string }>;
+  | Readonly<{ tipo: 'aberto'; fechaAs: string }>
+  | Readonly<{ tipo: 'fecha-e-reabre-hoje'; abreAs: string }>
+  | Readonly<{ tipo: 'reabre-outro-dia'; abreAs: string; diaQueAbre: string }>
+  | Readonly<{ tipo: 'sempre-fechado' }>;
+
+export function estaAberta(situacao: Situacao): boolean {
+  return situacao.tipo === 'aberto';
+}
 
 const MINUTOS_POR_HORA = 60;
 const DIAS_NA_SEMANA = 7;
@@ -41,14 +47,12 @@ function proximoDiaAberto(semana: Semana, dia: DiaDaSemana): { dia: DiaDeFuncion
 }
 
 export function situacaoEm(semana: Semana, momento: MomentoNaLoja): Situacao {
-  const hoje = semana[momento.dia];
-
-  for (const turno of hoje.turnos) {
+  for (const turno of semana[momento.dia].turnos) {
     if (momento.minutos < emMinutos(turno.abre)) {
-      return { aberto: false, abreAs: turno.abre, nesteDia: true, diaQueAbre: hoje.nome };
+      return { tipo: 'fecha-e-reabre-hoje', abreAs: turno.abre };
     }
     if (momento.minutos < emMinutos(turno.fecha)) {
-      return { aberto: true, fechaAs: turno.fecha };
+      return { tipo: 'aberto', fechaAs: turno.fecha };
     }
   }
 
@@ -56,20 +60,25 @@ export function situacaoEm(semana: Semana, momento: MomentoNaLoja): Situacao {
 
   // Only reachable when every day has no shifts, i.e. permanently closed.
   if (proximo === null || proximo.dia.turnos[0] === undefined) {
-    return { aberto: false, abreAs: '', nesteDia: false, diaQueAbre: '' };
+    return { tipo: 'sempre-fechado' };
   }
 
   return {
-    aberto: false,
+    tipo: 'reabre-outro-dia',
     abreAs: proximo.dia.turnos[0].abre,
-    nesteDia: false,
     diaQueAbre: proximo.salto === 1 ? 'amanhã' : proximo.dia.nome.toLowerCase(),
   };
 }
 
 export function descreverSituacao(situacao: Situacao): string {
-  if (situacao.aberto) return `Aberto agora · fecha às ${situacao.fechaAs}`;
-  if (situacao.abreAs === '') return 'Consulte os horários no WhatsApp';
-  if (situacao.nesteDia) return `Fechado · abre às ${situacao.abreAs}`;
-  return `Fechado · abre ${situacao.diaQueAbre} às ${situacao.abreAs}`;
+  switch (situacao.tipo) {
+    case 'aberto':
+      return `Aberto agora · fecha às ${situacao.fechaAs}`;
+    case 'fecha-e-reabre-hoje':
+      return `Fechado · abre às ${situacao.abreAs}`;
+    case 'reabre-outro-dia':
+      return `Fechado · abre ${situacao.diaQueAbre} às ${situacao.abreAs}`;
+    case 'sempre-fechado':
+      return 'Consulte os horários no WhatsApp';
+  }
 }

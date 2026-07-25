@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { descreverSituacao, situacaoEm, type MomentoNaLoja } from '@/core/horario/horario-loja';
+import { descreverSituacao, estaAberta, situacaoEm, type MomentoNaLoja } from '@/core/horario/horario-loja';
 import { momentoNaLoja, SEMANA_DA_LOJA } from '@/core/horario/semana-da-loja';
 
 const UM_MINUTO = 60_000;
@@ -25,7 +25,7 @@ export function SeloDeStatus() {
   const situacao = momento === null ? null : situacaoEm(SEMANA_DA_LOJA, momento);
 
   const corDoPonto =
-    situacao === null ? 'bg-cinza' : situacao.aberto ? 'bg-[#7dffa8]' : 'bg-vermelho';
+    situacao === null ? 'bg-cinza' : estaAberta(situacao) ? 'bg-[#7dffa8]' : 'bg-vermelho';
 
   return (
     <span className="inline-flex items-center gap-2.5 rounded-full border border-creme/25 px-4 py-2.5 font-mono text-[11px] tracking-[0.18em] uppercase backdrop-blur-sm">
