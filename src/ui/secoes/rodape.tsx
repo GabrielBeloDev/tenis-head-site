@@ -68,17 +68,3 @@ export function Rodape() {
   );
 }
 
-export function BotaoFlutuante() {
-  return (
-    <a
-      href={linkWhatsApp()}
-      target="_blank"
-      rel="noopener"
-      className="fixed right-4 bottom-4 z-60 inline-flex items-center gap-2.5 rounded-full bg-vermelho px-5 py-3.5 text-[15px] font-bold text-white shadow-[0_18px_40px_-12px_rgba(224,27,34,0.6)] transition hover:-translate-y-0.5 hover:bg-vermelho-claro sm:right-7 sm:bottom-7"
-    >
-      <Icone nome="whatsapp" className="size-5" />
-      {/* Icon only on phones: the label would stretch the pill across the ticker. */}
-      <span className="sr-only sm:not-sr-only">Chamar no WhatsApp</span>
-    </a>
-  );
-}

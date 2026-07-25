@@ -14,7 +14,7 @@ export function ALoja() {
           />
         </div>
 
-        <div className="px-1 py-10 lg:px-10 lg:py-14">
+        <div className="py-10 lg:px-10 lg:py-14">
           <p className="rotulo-secao">A loja</p>
           <h2 className="titulo-display mt-4 text-[clamp(2.4rem,4.6vw,4rem)]">
             Uma parede
