@@ -1,11 +1,10 @@
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { listarTodos } from '@/core/produtos/casos-de-uso';
 import { supabaseDisponivel } from '@/infra/produtos/fabrica';
 import { clienteDoServidor } from '@/infra/supabase/cliente';
 import { criarRepositorioSupabase } from '@/infra/supabase/repositorio-de-produtos';
-import { FormularioDeProduto } from '@/ui/admin/formulario-de-produto';
 import { ListaDeProdutos } from '@/ui/admin/lista-de-produtos';
-import { sair } from './acoes';
 
 export const metadata = { title: 'Painel · Tênis Head', robots: { index: false } };
 
@@ -17,51 +16,31 @@ export default async function Painel() {
   if (data.user === null) redirect('/admin/entrar');
 
   const produtos = await listarTodos(criarRepositorioSupabase());
+  const naHome = produtos.filter((produto) => produto.destaque).length;
 
   return (
-    <main className="mx-auto max-w-5xl px-5 py-10 sm:px-8">
-      <header className="flex flex-wrap items-center justify-between gap-4 border-b border-creme/10 pb-6">
+    <>
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="font-titulo text-3xl uppercase">Vitrine</h1>
           <p className="mt-1 text-sm text-creme/60">
-            {produtos.length} {produtos.length === 1 ? 'produto cadastrado' : 'produtos cadastrados'} ·{' '}
-            {data.user.email}
+            {produtos.length} {produtos.length === 1 ? 'par cadastrado' : 'pares cadastrados'} ·{' '}
+            {naHome} aparecendo no site
           </p>
         </div>
-        <div className="flex flex-wrap gap-2">
-          <a
-            href="/"
-            target="_blank"
-            rel="noopener"
-            className="rounded-full border border-creme/25 px-5 py-2.5 text-sm font-semibold transition hover:border-creme"
-          >
-            Ver o site
-          </a>
-          <form action={sair}>
-            <button className="rounded-full border border-creme/25 px-5 py-2.5 text-sm font-semibold transition hover:border-creme">
-              Sair
-            </button>
-          </form>
-        </div>
-      </header>
 
-      <section className="mt-8">
-        <h2 className="font-titulo text-xl uppercase">Adicionar par</h2>
-        <p className="mt-1 text-sm leading-relaxed text-creme/60">
-          O que você salvar aqui aparece no site na hora, sem precisar de mais nada. Se errar algo, pode
-          editar ou remover na lista abaixo.
-        </p>
-        <FormularioDeProduto proximaOrdem={produtos.length + 1} />
-      </section>
+        <Link
+          href="/admin/novo"
+          className="rounded-full bg-vermelho px-6 py-3 text-sm font-bold text-white transition hover:bg-vermelho-claro"
+        >
+          Adicionar par
+        </Link>
+      </div>
 
-      <section className="mt-12">
-        <h2 className="font-titulo text-xl uppercase">Na vitrine</h2>
-        <p className="mt-1 text-sm leading-relaxed text-creme/60">
-          Ordem de exibição no site. Quem está oculto continua cadastrado, mas não aparece para o cliente.
-        </p>
+      <div className="mt-6">
         <ListaDeProdutos produtos={produtos} />
-      </section>
-    </main>
+      </div>
+    </>
   );
 }
 

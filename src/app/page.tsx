@@ -1,5 +1,7 @@
-import { listarVitrine } from '@/core/produtos/casos-de-uso';
-import { repositorioDeProdutos } from '@/infra/produtos/fabrica';
+import { ordenarParaVitrine } from '@/core/produtos/produto';
+import { PRODUTOS_INICIAIS } from '@/infra/produtos/repositorio-em-memoria';
+import { supabaseDisponivel } from '@/infra/produtos/fabrica';
+import { lerVitrinePublica } from '@/infra/supabase/repositorio-publico';
 import { ALoja } from '@/ui/secoes/a-loja';
 import { Cabecalho } from '@/ui/secoes/cabecalho';
 import { ComoComprar } from '@/ui/secoes/como-comprar';
@@ -10,8 +12,12 @@ import { BotaoFlutuante } from '@/ui/componentes/botao-flutuante';
 import { Ticker } from '@/ui/secoes/ticker';
 import { Vitrine } from '@/ui/secoes/vitrine';
 
+export const revalidate = 60;
+
 export default async function Home() {
-  const produtos = await listarVitrine(repositorioDeProdutos());
+  const produtos = supabaseDisponivel()
+    ? await lerVitrinePublica()
+    : ordenarParaVitrine(PRODUTOS_INICIAIS.filter((produto) => produto.destaque));
 
   return (
     <>
