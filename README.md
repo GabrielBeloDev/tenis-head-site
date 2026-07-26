@@ -3,7 +3,7 @@
 Site e painel de gestão de uma loja de tênis real em São Luís — MA, que vende no varejo e no
 atacado e fecha todas as vendas pelo WhatsApp.
 
-**[tenishead.com.br](https://tenishead.com.br)** · Next.js 16 · React 19 · TypeScript · Tailwind 4 · Supabase
+**[tenis-head-site.gabrielbelodev.workers.dev](https://tenis-head-site.gabrielbelodev.workers.dev)** · Next.js 16 · React 19 · TypeScript · Tailwind 4 · Supabase
 
 <!-- prints entram aqui -->
 
@@ -74,6 +74,12 @@ A escolha foi deliberada: manter o custo mensal em zero para o dono, que já pag
 nvm use            # Node 22
 npm install
 npm run dev
+```
+
+Publicar:
+
+```bash
+npm run cf:build && npx wrangler deploy
 ```
 
 O site sobe sem nenhuma configuração, usando a vitrine inicial do código. Para habilitar o painel,

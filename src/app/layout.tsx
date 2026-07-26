@@ -7,7 +7,7 @@ const anton = Anton({ weight: '400', subsets: ['latin'], variable: '--fonte-anto
 const archivo = Archivo({ subsets: ['latin'], variable: '--fonte-archivo', display: 'swap' });
 const spaceGrotesk = Space_Grotesk({ subsets: ['latin'], variable: '--fonte-space-grotesk', display: 'swap' });
 
-const SITE = 'https://tenishead.com.br';
+const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://tenis-head-site.gabrielbelodev.workers.dev';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE),
