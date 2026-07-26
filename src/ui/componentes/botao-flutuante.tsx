@@ -11,7 +11,6 @@ export function BotaoFlutuante() {
     const hero = document.querySelector('section');
     if (hero === null) return;
 
-    // Enquanto o hero está na tela o botão é redundante e pousa em cima do CTA de lá.
     const observador = new IntersectionObserver(
       ([entrada]) => setVisivel(entrada !== undefined && !entrada.isIntersecting),
       { threshold: 0.25 },

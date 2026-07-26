@@ -17,7 +17,6 @@ export default async function LayoutDoPainel({ children }: Readonly<{ children: 
 
       <div className="min-w-0 flex-1">
         <header className="flex items-center justify-between gap-4 border-b border-creme/10 px-5 py-4 lg:px-8">
-          {/* No desktop a identificação já aparece na navegação lateral. */}
           <div className="min-w-0 lg:hidden">
             <p className="font-titulo text-lg uppercase">Painel</p>
             <p className="truncate font-mono text-[10px] tracking-wide text-cinza uppercase">
@@ -32,7 +31,6 @@ export default async function LayoutDoPainel({ children }: Readonly<{ children: 
           </form>
         </header>
 
-        {/* pb generoso: a barra de navegação fica fixa no rodapé do celular */}
         <main className="px-5 pt-6 pb-28 lg:px-8 lg:pb-10">{children}</main>
       </div>
 

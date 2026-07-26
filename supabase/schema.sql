@@ -19,7 +19,7 @@ create policy "administrador vê a si mesmo"
   to authenticated
   using (id = auth.uid());
 
--- Fora do schema public para não virar endpoint RPC: o PostgREST só expõe o public.
+-- Outside the public schema so PostgREST does not expose it as an RPC endpoint.
 create schema if not exists privado;
 
 create function privado.eh_administrador()
@@ -66,7 +66,7 @@ insert into storage.buckets (id, name, public)
 values ('produtos', 'produtos', true)
 on conflict (id) do nothing;
 
--- Bucket público serve por URL direta. Uma policy de select aqui deixaria listar o bucket inteiro.
+-- A select policy here would let anyone list the whole bucket; public URLs work without it.
 create policy "só administrador envia foto"
   on storage.objects for insert
   to authenticated

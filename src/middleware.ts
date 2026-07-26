@@ -17,7 +17,6 @@ export async function middleware(requisicao: NextRequest) {
       cookies: {
         getAll: () => requisicao.cookies.getAll(),
         setAll: (aDefinir) => {
-          // Escreve na requisição também: sem isso o render desta mesma request lê o token antigo.
           aDefinir.forEach(({ name, value }) => requisicao.cookies.set(name, value));
           resposta = NextResponse.next({ request: requisicao });
           aDefinir.forEach(({ name, value, options }) => resposta.cookies.set(name, value, options));
@@ -34,7 +33,7 @@ export async function middleware(requisicao: NextRequest) {
 
   if (destino === null) return resposta;
 
-  // Um redirect novo descartaria os cookies que o getUser acabou de rotacionar, deslogando o dono.
+  // A fresh redirect would drop the cookies getUser just rotated, logging the owner out.
   const redirecionamento = NextResponse.redirect(new URL(destino, requisicao.url));
   resposta.cookies.getAll().forEach((cookie) => redirecionamento.cookies.set(cookie));
   return redirecionamento;

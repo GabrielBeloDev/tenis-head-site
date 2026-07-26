@@ -64,7 +64,6 @@ export default function LayoutRaiz({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" className={`${anton.variable} ${archivo.variable} ${spaceGrotesk.variable}`}>
       <head>
-        {/* Video posters get Low priority in Chrome and miss the LCP boost an img would get. */}
         <link rel="preload" as="image" href="/assets/loja-poster.jpg" fetchPriority="high" />
         <script
           type="application/ld+json"

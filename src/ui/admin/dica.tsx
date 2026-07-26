@@ -16,7 +16,7 @@ export function Dica({ texto }: PropsDaDica) {
         aria-describedby={aberta ? id : undefined}
         aria-expanded={aberta}
         onClick={(evento) => {
-          // Sem isto o clique sobe para o <label> e move o foco para o campo, fechando a dica.
+          // Otherwise the click bubbles to the <label> and moves focus, closing this.
           evento.preventDefault();
           setAberta((estava) => !estava);
         }}

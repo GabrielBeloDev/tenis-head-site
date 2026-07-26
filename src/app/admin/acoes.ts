@@ -12,7 +12,7 @@ import { criarRepositorioSupabase } from '@/infra/supabase/repositorio-de-produt
 const TAMANHO_MAXIMO = 8 * 1024 * 1024;
 const FORMATOS_ACEITOS = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'];
 
-// Server Action é uma entrada HTTP própria: proteger só a rota no middleware não a cobre.
+// A Server Action is its own HTTP entry point; middleware on the route does not cover it.
 async function exigirSessao(): Promise<void> {
   const supabase = await clienteDoServidor();
   const { data } = await supabase.auth.getUser();
@@ -99,7 +99,7 @@ export async function salvarProduto(
       await cadastrarProduto(repositorio, { ...campos.data, imagem });
     }
   } catch (erro) {
-    // Mensagem do Postgres expõe tabela e política, e não diz nada útil para quem está no painel.
+    // Postgres messages leak table and policy names and help nobody using the panel.
     console.error('Falha ao salvar produto', erro);
     return { erro: 'Não foi possível salvar. Tente de novo.' };
   }

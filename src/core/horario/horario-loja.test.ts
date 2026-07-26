@@ -134,14 +134,12 @@ describe('loja permanentemente fechada', () => {
 
 describe('conversão do relógio para o fuso da loja', () => {
   it('usa o horário de São Luís, e não o de quem acessa', () => {
-    // 23:30Z is Saturday 20:30 in São Luís (UTC-3), after closing.
     const momento = momentoNaLoja(new Date('2026-07-25T23:30:00Z'));
     expect(momento).toEqual({ dia: SABADO, minutos: 20 * 60 + 30 });
     expect(estaAberta(situacaoEm(SEMANA_DA_LOJA, momento))).toBe(false);
   });
 
   it('vira o dia junto com o fuso da loja, e não com o UTC', () => {
-    // 02:00Z is already Sunday in UTC but still Saturday 23:00 in São Luís.
     expect(momentoNaLoja(new Date('2026-07-26T02:00:00Z')).dia).toBe(SABADO);
   });
 

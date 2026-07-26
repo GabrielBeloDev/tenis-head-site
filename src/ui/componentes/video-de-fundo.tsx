@@ -15,8 +15,6 @@ const LARGURA_PARA_ALTA_RESOLUCAO = 1024;
 export function VideoDeFundo({ fonte, fonteAltaResolucao, poster, className = '' }: PropsDoVideo) {
   const referencia = useRef<HTMLVideoElement>(null);
   const [comSom, setComSom] = useState(false);
-  // Escolhido depois de montar: no servidor não dá para saber a largura da tela, e mandar
-  // 1080p para quem está no 4G custa alguns segundos de espera no primeiro carregamento.
   const [origem, setOrigem] = useState(fonte);
 
   useEffect(() => {
