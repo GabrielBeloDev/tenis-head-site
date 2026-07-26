@@ -37,11 +37,18 @@ export default async function Painel() {
 
       <section className="mt-8">
         <h2 className="font-titulo text-xl uppercase">Adicionar par</h2>
+        <p className="mt-1 text-sm leading-relaxed text-creme/60">
+          O que você salvar aqui aparece no site na hora, sem precisar de mais nada. Se errar algo, pode
+          editar ou remover na lista abaixo.
+        </p>
         <FormularioDeProduto proximaOrdem={produtos.length + 1} />
       </section>
 
       <section className="mt-12">
         <h2 className="font-titulo text-xl uppercase">Na vitrine</h2>
+        <p className="mt-1 text-sm leading-relaxed text-creme/60">
+          Ordem de exibição no site. Quem está oculto continua cadastrado, mas não aparece para o cliente.
+        </p>
         <ListaDeProdutos produtos={produtos} />
       </section>
     </main>

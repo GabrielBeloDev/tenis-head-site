@@ -1,7 +1,8 @@
 'use client';
 
-import { useActionState, useState } from 'react';
-import { CATEGORIAS, type Produto } from '@/core/produtos/produto';
+import Image from 'next/image';
+import { useActionState, useEffect, useState } from 'react';
+import { CATEGORIAS, type Categoria, type Produto } from '@/core/produtos/produto';
 import { salvarProduto, type ResultadoDaAcao } from '@/app/admin/acoes';
 import { recortarParaVitrine, type PosicaoDoCorte } from '@/infra/imagem/recortar-para-vitrine';
 
@@ -11,14 +12,35 @@ type PropsDoFormulario = Readonly<{
   aoConcluir?: () => void;
 }>;
 
-const CAMPO = 'w-full rounded-xl border border-creme/15 bg-carvao px-4 py-3 text-[15px] outline-none focus:border-vermelho-claro';
+const CAMPO =
+  'w-full rounded-xl border border-creme/15 bg-carvao px-4 py-3 text-[15px] outline-none transition focus:border-vermelho-claro';
+
+const NOME_DA_CATEGORIA: Readonly<Record<Categoria, string>> = {
+  lifestyle: 'Lifestyle (dia a dia)',
+  corrida: 'Corrida',
+  campo: 'Chuteira de campo',
+  treino: 'Treino / academia',
+  casual: 'Casual',
+};
+
+function Campo({ titulo, ajuda, children }: Readonly<{ titulo: string; ajuda: string; children: React.ReactNode }>) {
+  return (
+    <label className="grid gap-1.5">
+      <span className="text-sm font-semibold">{titulo}</span>
+      <span className="text-xs leading-relaxed text-creme/55">{ajuda}</span>
+      <span className="mt-1 block">{children}</span>
+    </label>
+  );
+}
 
 export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: PropsDoFormulario) {
   const [posicaoDoCorte, setPosicaoDoCorte] = useState<PosicaoDoCorte>('centro');
+  const [previa, setPrevia] = useState<string | null>(null);
+
+  useEffect(() => () => { if (previa !== null) URL.revokeObjectURL(previa); }, [previa]);
 
   const [resultado, executar, enviando] = useActionState<ResultadoDaAcao | null, FormData>(
     async (anterior, dados) => {
-      // Recorta antes de subir: foto de celular sobe ~4 MB e só ~200 KB seriam pintados no card.
       const escolhida = dados.get('imagem');
       if (escolhida instanceof File && escolhida.size > 0) {
         dados.set('imagem', await recortarParaVitrine(escolhida, posicaoDoCorte));
@@ -31,73 +53,109 @@ export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: P
     null,
   );
 
+  async function aoEscolherFoto(evento: React.ChangeEvent<HTMLInputElement>) {
+    const arquivo = evento.target.files?.[0];
+    if (arquivo === undefined) return;
+
+    const recortada = await recortarParaVitrine(arquivo, posicaoDoCorte);
+    setPrevia(URL.createObjectURL(recortada));
+  }
+
   return (
-    <form action={executar} className="mt-4 grid gap-4 rounded-2xl border border-creme/10 bg-grafite p-5 sm:p-6">
+    <form action={executar} className="mt-4 grid gap-5 rounded-2xl border border-creme/10 bg-grafite p-5 sm:p-6">
       {produto !== undefined && <input type="hidden" name="id" value={produto.id} />}
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="grid gap-2">
-          <span className="text-sm font-semibold">Modelo</span>
+      <div className="grid gap-5 sm:grid-cols-2">
+        <Campo titulo="Modelo" ajuda="Só o nome do tênis, sem a marca. Aparece grande no card.">
           <input name="nome" defaultValue={produto?.nome} required className={CAMPO} placeholder="Adizero Adios Pro 4" />
-        </label>
+        </Campo>
 
-        <label className="grid gap-2">
-          <span className="text-sm font-semibold">Marca</span>
+        <Campo titulo="Marca" ajuda="Nike, adidas, New Balance, Puma…">
           <input name="marca" defaultValue={produto?.marca} required className={CAMPO} placeholder="adidas" />
-        </label>
+        </Campo>
 
-        <label className="grid gap-2">
-          <span className="text-sm font-semibold">Categoria</span>
+        <Campo titulo="Categoria" ajuda="Aparece em cima do nome, junto com a marca.">
           <select name="categoria" defaultValue={produto?.categoria ?? 'lifestyle'} className={CAMPO}>
             {CATEGORIAS.map((categoria) => (
               <option key={categoria} value={categoria}>
-                {categoria}
+                {NOME_DA_CATEGORIA[categoria]}
               </option>
             ))}
           </select>
-        </label>
+        </Campo>
 
-        <label className="grid gap-2">
-          <span className="text-sm font-semibold">Posição na vitrine</span>
-          <input
-            name="ordem"
-            type="number"
-            min={1}
-            defaultValue={produto?.ordem ?? proximaOrdem}
-            className={CAMPO}
-          />
-        </label>
+        <Campo titulo="Ordem" ajuda="1 aparece primeiro. Use para colocar o lançamento na frente.">
+          <input name="ordem" type="number" min={1} defaultValue={produto?.ordem ?? proximaOrdem} className={CAMPO} />
+        </Campo>
       </div>
 
-      <label className="grid gap-2">
-        <span className="text-sm font-semibold">
-          Foto {produto !== undefined && <span className="font-normal text-creme/50">— deixe vazio para manter a atual</span>}
-        </span>
-        <input name="imagem" type="file" accept="image/*" className={`${CAMPO} file:mr-3 file:rounded-full file:border-0 file:bg-vermelho file:px-4 file:py-1.5 file:text-sm file:font-semibold file:text-white`} />
-        <span className="text-xs text-creme/50">
-          A foto é recortada em 4:5 antes de subir. Pode mandar direto do celular.
-        </span>
-      </label>
+      <Campo
+        titulo={produto === undefined ? 'Foto do par' : 'Trocar a foto'}
+        ajuda={
+          produto === undefined
+            ? 'Pode mandar direto do celular. A foto é cortada em 4:5 aqui no navegador antes de subir, então não precisa editar antes.'
+            : 'Deixe em branco para manter a foto atual.'
+        }
+      >
+        <input
+          name="imagem"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          onChange={aoEscolherFoto}
+          className={`${CAMPO} file:mr-3 file:rounded-full file:border-0 file:bg-vermelho file:px-4 file:py-1.5 file:text-sm file:font-semibold file:text-white`}
+        />
+      </Campo>
 
-      <fieldset className="flex flex-wrap items-center gap-4">
-        <legend className="mb-2 text-sm font-semibold">Posição do recorte</legend>
-        {(['centro', 'base'] as const).map((posicao) => (
-          <label key={posicao} className="flex items-center gap-2 text-sm">
-            <input
-              type="radio"
-              name="posicaoDoCorte"
-              checked={posicaoDoCorte === posicao}
-              onChange={() => setPosicaoDoCorte(posicao)}
-              className="size-4 accent-[#e01b22]"
-            />
-            {posicao === 'centro' ? 'Pelo centro' : 'O par está embaixo na foto'}
-          </label>
-        ))}
+      <fieldset className="grid gap-2">
+        <legend className="text-sm font-semibold">Onde está o tênis na foto?</legend>
+        <span className="text-xs text-creme/55">
+          Foto de celular é mais alta que o card, então parte dela é cortada. Isso diz o que preservar.
+        </span>
+        <div className="mt-1 flex flex-wrap gap-4">
+          {(['centro', 'base'] as const).map((posicao) => (
+            <label key={posicao} className="flex items-center gap-2 text-sm">
+              <input
+                type="radio"
+                name="posicaoDoCorte"
+                checked={posicaoDoCorte === posicao}
+                onChange={() => setPosicaoDoCorte(posicao)}
+                className="size-4 accent-[#e01b22]"
+              />
+              {posicao === 'centro' ? 'No meio' : 'Na parte de baixo'}
+            </label>
+          ))}
+        </div>
       </fieldset>
 
-      <label className="flex items-center gap-3">
-        <input name="destaque" type="checkbox" defaultChecked={produto?.destaque ?? true} className="size-4 accent-[#e01b22]" />
-        <span className="text-sm font-semibold">Mostrar na home</span>
+      {(previa ?? produto?.imagem) !== undefined && (previa ?? produto?.imagem) !== null && (
+        <div className="flex items-center gap-4 rounded-xl border border-creme/10 bg-carvao p-4">
+          <Image
+            src={previa ?? produto?.imagem ?? ''}
+            alt=""
+            width={80}
+            height={100}
+            unoptimized={previa !== null}
+            className="h-25 w-20 rounded-lg object-cover"
+          />
+          <p className="text-xs leading-relaxed text-creme/60">
+            {previa === null ? 'Foto atual do produto.' : 'É exatamente assim que vai aparecer no site.'}
+          </p>
+        </div>
+      )}
+
+      <label className="flex items-start gap-3 rounded-xl border border-creme/10 bg-carvao p-4">
+        <input
+          name="destaque"
+          type="checkbox"
+          defaultChecked={produto?.destaque ?? true}
+          className="mt-0.5 size-4 accent-[#e01b22]"
+        />
+        <span>
+          <span className="block text-sm font-semibold">Mostrar na home</span>
+          <span className="block text-xs text-creme/55">
+            Desmarque para tirar da vitrine sem apagar o cadastro, por exemplo quando o par acaba.
+          </span>
+        </span>
       </label>
 
       {resultado !== null && 'erro' in resultado && (
@@ -108,7 +166,7 @@ export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: P
 
       {resultado !== null && 'sucesso' in resultado && (
         <p role="status" className="rounded-xl border border-[#7dffa8]/30 bg-[#7dffa8]/10 px-4 py-3 text-sm text-[#7dffa8]">
-          Salvo. A vitrine já está atualizada.
+          Pronto. A vitrine do site já está atualizada.
         </p>
       )}
 

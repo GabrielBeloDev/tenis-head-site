@@ -19,3 +19,6 @@ CLAUDE.md
 AGENTS.md
 .remember/
 .playwright-mcp/
+
+# artefato de build do TypeScript
+tsconfig.tsbuildinfo
