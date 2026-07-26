@@ -27,7 +27,7 @@ export function BotaoFlutuante() {
       rel="noopener"
       aria-hidden={!visivel}
       tabIndex={visivel ? undefined : -1}
-      className={`fixed right-4 bottom-4 z-60 inline-flex items-center gap-2.5 rounded-full bg-vermelho px-5 py-3.5 text-[15px] font-bold text-white shadow-[0_18px_40px_-12px_rgba(224,27,34,0.6)] transition duration-300 hover:bg-vermelho-claro sm:right-7 sm:bottom-7 ${
+      className={`fixed right-4 bottom-4 z-[60] inline-flex items-center gap-2.5 rounded-full bg-vermelho px-5 py-3.5 text-[15px] font-bold text-white shadow-[0_18px_40px_-12px_rgba(224,27,34,0.6)] transition duration-300 hover:bg-vermelho-claro sm:right-7 sm:bottom-7 ${
         visivel ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-4 opacity-0'
       }`}
     >
