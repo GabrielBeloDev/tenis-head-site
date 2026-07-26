@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-preto: #0c0c0d;
+  --color-carvao: #15151a;
+  --color-grafite: #101013;
+  --color-vermelho: #e01b22;
+  /* Small text uses this lighter red: the full red is 3.8:1 on dark and fails AA. */
+  --color-vermelho-claro: #ff3b41;
+  --color-creme: #f4f2ef;
+  --color-cinza: #8f8a84;
+
+  --font-titulo: var(--fonte-anton), sans-serif;
+  --font-corpo: var(--fonte-archivo), system-ui, sans-serif;
+  --font-mono: var(--fonte-space-grotesk), monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 88px;
+  }
+
+  body {
+    background: var(--color-preto);
+    color: var(--color-creme);
+    font-family: var(--font-corpo);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@utility rotulo-secao {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--color-vermelho-claro);
+}
+
+@utility titulo-display {
+  font-family: var(--font-titulo);
+  font-weight: 400;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+@utility faixa-listrada {
+  height: 6px;
+  background: repeating-linear-gradient(115deg, var(--color-vermelho) 0 22px, var(--color-preto) 22px 44px);
+}
+
+@keyframes correr {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility fita-animada {
+  animation: correr 34s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fita-animada {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
