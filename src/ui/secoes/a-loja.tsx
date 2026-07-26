@@ -9,6 +9,7 @@ export function ALoja() {
         <div className="relative min-h-80 bg-grafite lg:min-h-[26rem]">
           <VideoDeFundo
             fonte="/assets/dono.mp4"
+            fonteAltaResolucao="/assets/dono-1080.mp4"
             poster="/assets/dono-poster.jpg"
             className="absolute inset-0 size-full object-cover"
           />

@@ -5,6 +5,7 @@ import { useActionState, useEffect, useState } from 'react';
 import { CATEGORIAS, type Categoria, type Produto } from '@/core/produtos/produto';
 import { salvarProduto, type ResultadoDaAcao } from '@/app/admin/acoes';
 import { recortarParaVitrine, type PosicaoDoCorte } from '@/infra/imagem/recortar-para-vitrine';
+import { Dica } from './dica';
 
 type PropsDoFormulario = Readonly<{
   produto?: Produto;
@@ -23,10 +24,20 @@ const NOME_DA_CATEGORIA: Readonly<Record<Categoria, string>> = {
   casual: 'Casual',
 };
 
-function Campo({ titulo, ajuda, children }: Readonly<{ titulo: string; ajuda: string; children: React.ReactNode }>) {
+type PropsDoCampo = Readonly<{
+  titulo: string;
+  ajuda: string;
+  dica: string;
+  children: React.ReactNode;
+}>;
+
+function Campo({ titulo, ajuda, dica, children }: PropsDoCampo) {
   return (
     <label className="grid gap-1.5">
-      <span className="text-sm font-semibold">{titulo}</span>
+      <span className="flex items-center gap-2 text-sm font-semibold">
+        {titulo}
+        <Dica texto={dica} />
+      </span>
       <span className="text-xs leading-relaxed text-creme/55">{ajuda}</span>
       <span className="mt-1 block">{children}</span>
     </label>
@@ -66,15 +77,27 @@ export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: P
       {produto !== undefined && <input type="hidden" name="id" value={produto.id} />}
 
       <div className="grid gap-5 sm:grid-cols-2">
-        <Campo titulo="Modelo" ajuda="Só o nome do tênis, sem a marca. Aparece grande no card.">
+        <Campo
+          titulo="Modelo"
+          ajuda="Só o nome do tênis, sem a marca. Aparece grande no card."
+          dica="Escreva como o cliente fala. Esse texto também entra na mensagem que abre no WhatsApp quando ele toca no card, então evite código interno ou abreviação."
+        >
           <input name="nome" defaultValue={produto?.nome} required className={CAMPO} placeholder="Adizero Adios Pro 4" />
         </Campo>
 
-        <Campo titulo="Marca" ajuda="Nike, adidas, New Balance, Puma…">
+        <Campo
+          titulo="Marca"
+          ajuda="Nike, adidas, New Balance, Puma…"
+          dica="Aparece em cima do nome, em letra pequena. Mantenha sempre a mesma grafia, senão a vitrine fica com adidas e Adidas misturados."
+        >
           <input name="marca" defaultValue={produto?.marca} required className={CAMPO} placeholder="adidas" />
         </Campo>
 
-        <Campo titulo="Categoria" ajuda="Aparece em cima do nome, junto com a marca.">
+        <Campo
+          titulo="Categoria"
+          ajuda="Aparece em cima do nome, junto com a marca."
+          dica="Serve para o cliente entender o uso do par de relance. Escolha pelo uso principal, mesmo que sirva para mais de uma coisa."
+        >
           <select name="categoria" defaultValue={produto?.categoria ?? 'lifestyle'} className={CAMPO}>
             {CATEGORIAS.map((categoria) => (
               <option key={categoria} value={categoria}>
@@ -84,13 +107,18 @@ export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: P
           </select>
         </Campo>
 
-        <Campo titulo="Ordem" ajuda="1 aparece primeiro. Use para colocar o lançamento na frente.">
+        <Campo
+          titulo="Ordem"
+          ajuda="1 aparece primeiro. Use para colocar o lançamento na frente."
+          dica="Se dois produtos tiverem o mesmo número, os dois aparecem, só não dá para prever qual vem antes. Para reordenar, troque o número dos dois."
+        >
           <input name="ordem" type="number" min={1} defaultValue={produto?.ordem ?? proximaOrdem} className={CAMPO} />
         </Campo>
       </div>
 
       <Campo
         titulo={produto === undefined ? 'Foto do par' : 'Trocar a foto'}
+        dica="Foto de celular serve. O corte para 4:5 acontece aqui no navegador, então o que sobe já é pequeno e não gasta seu limite de armazenamento. Aceita JPEG, PNG e WebP, até 8 MB."
         ajuda={
           produto === undefined
             ? 'Pode mandar direto do celular. A foto é cortada em 4:5 aqui no navegador antes de subir, então não precisa editar antes.'

@@ -8,6 +8,7 @@ export function Hero() {
     <section className="relative flex min-h-[36rem] items-end overflow-hidden lg:min-h-[46rem]">
       <VideoDeFundo
         fonte="/assets/loja.mp4"
+        fonteAltaResolucao="/assets/loja-1080.mp4"
         poster="/assets/loja-poster.jpg"
         className="absolute inset-0 size-full object-cover opacity-70"
       />

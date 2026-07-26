@@ -5,24 +5,29 @@ import { Icone } from './icone';
 
 type PropsDoVideo = Readonly<{
   fonte: string;
+  fonteAltaResolucao: string;
   poster: string;
   className?: string;
 }>;
 
-// Browsers only autoplay muted video, so sound starts off and this button is the required user gesture.
-export function VideoDeFundo({ fonte, poster, className = '' }: PropsDoVideo) {
+const LARGURA_PARA_ALTA_RESOLUCAO = 1024;
+
+export function VideoDeFundo({ fonte, fonteAltaResolucao, poster, className = '' }: PropsDoVideo) {
   const referencia = useRef<HTMLVideoElement>(null);
   const [comSom, setComSom] = useState(false);
+  // Escolhido depois de montar: no servidor não dá para saber a largura da tela, e mandar
+  // 1080p para quem está no 4G custa alguns segundos de espera no primeiro carregamento.
+  const [origem, setOrigem] = useState(fonte);
 
   useEffect(() => {
-    const video = referencia.current;
-    if (video === null) return;
+    if (window.innerWidth >= LARGURA_PARA_ALTA_RESOLUCAO) setOrigem(fonteAltaResolucao);
 
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const video = referencia.current;
+    if (video !== null && matchMedia('(prefers-reduced-motion: reduce)').matches) {
       video.removeAttribute('autoplay');
       video.pause();
     }
-  }, []);
+  }, [fonteAltaResolucao]);
 
   function alternarSom() {
     const video = referencia.current;
@@ -35,9 +40,10 @@ export function VideoDeFundo({ fonte, poster, className = '' }: PropsDoVideo) {
 
   return (
     <>
+      {/* Browsers only autoplay muted video, so sound starts off and this button is the required user gesture. */}
       <video
         ref={referencia}
-        src={fonte}
+        src={origem}
         poster={poster}
         autoPlay
         muted
