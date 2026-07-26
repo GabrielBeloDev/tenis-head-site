@@ -28,11 +28,21 @@ export default async function Painel() {
             {data.user.email}
           </p>
         </div>
-        <form action={sair}>
-          <button className="rounded-full border border-creme/25 px-5 py-2.5 text-sm font-semibold transition hover:border-creme">
-            Sair
-          </button>
-        </form>
+        <div className="flex flex-wrap gap-2">
+          <a
+            href="/"
+            target="_blank"
+            rel="noopener"
+            className="rounded-full border border-creme/25 px-5 py-2.5 text-sm font-semibold transition hover:border-creme"
+          >
+            Ver o site
+          </a>
+          <form action={sair}>
+            <button className="rounded-full border border-creme/25 px-5 py-2.5 text-sm font-semibold transition hover:border-creme">
+              Sair
+            </button>
+          </form>
+        </div>
       </header>
 
       <section className="mt-8">

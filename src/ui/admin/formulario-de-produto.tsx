@@ -1,11 +1,11 @@
 'use client';
 
-import Image from 'next/image';
-import { useActionState, useEffect, useState } from 'react';
+import { useActionState, useState } from 'react';
 import { CATEGORIAS, type Categoria, type Produto } from '@/core/produtos/produto';
 import { salvarProduto, type ResultadoDaAcao } from '@/app/admin/acoes';
 import { recortarParaVitrine, type PosicaoDoCorte } from '@/infra/imagem/recortar-para-vitrine';
 import { Dica } from './dica';
+import { CampoDeFoto } from './campo-de-foto';
 
 type PropsDoFormulario = Readonly<{
   produto?: Produto;
@@ -46,9 +46,6 @@ function Campo({ titulo, ajuda, dica, children }: PropsDoCampo) {
 
 export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: PropsDoFormulario) {
   const [posicaoDoCorte, setPosicaoDoCorte] = useState<PosicaoDoCorte>('centro');
-  const [previa, setPrevia] = useState<string | null>(null);
-
-  useEffect(() => () => { if (previa !== null) URL.revokeObjectURL(previa); }, [previa]);
 
   const [resultado, executar, enviando] = useActionState<ResultadoDaAcao | null, FormData>(
     async (anterior, dados) => {
@@ -64,13 +61,6 @@ export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: P
     null,
   );
 
-  async function aoEscolherFoto(evento: React.ChangeEvent<HTMLInputElement>) {
-    const arquivo = evento.target.files?.[0];
-    if (arquivo === undefined) return;
-
-    const recortada = await recortarParaVitrine(arquivo, posicaoDoCorte);
-    setPrevia(URL.createObjectURL(recortada));
-  }
 
   return (
     <form action={executar} className="mt-4 grid gap-5 rounded-2xl border border-creme/10 bg-grafite p-5 sm:p-6">
@@ -116,60 +106,17 @@ export function FormularioDeProduto({ produto, proximaOrdem = 1, aoConcluir }: P
         </Campo>
       </div>
 
-      <Campo
-        titulo={produto === undefined ? 'Foto do par' : 'Trocar a foto'}
-        dica="Foto de celular serve. O corte para 4:5 acontece aqui no navegador, então o que sobe já é pequeno e não gasta seu limite de armazenamento. Aceita JPEG, PNG e WebP, até 8 MB."
-        ajuda={
-          produto === undefined
-            ? 'Pode mandar direto do celular. A foto é cortada em 4:5 aqui no navegador antes de subir, então não precisa editar antes.'
-            : 'Deixe em branco para manter a foto atual.'
-        }
-      >
-        <input
-          name="imagem"
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          onChange={aoEscolherFoto}
-          className={`${CAMPO} file:mr-3 file:rounded-full file:border-0 file:bg-vermelho file:px-4 file:py-1.5 file:text-sm file:font-semibold file:text-white`}
-        />
-      </Campo>
-
-      <fieldset className="grid gap-2">
-        <legend className="text-sm font-semibold">Onde está o tênis na foto?</legend>
-        <span className="text-xs text-creme/55">
-          Foto de celular é mais alta que o card, então parte dela é cortada. Isso diz o que preservar.
+      <div className="grid gap-1.5">
+        <span className="flex items-center gap-2 text-sm font-semibold">
+          {produto === undefined ? 'Foto do par' : 'Foto'}
+          <Dica texto="Foto de celular serve. O corte para 4:5 acontece aqui no navegador, então o que sobe já é pequeno e não gasta seu limite de armazenamento. Aceita JPEG, PNG e WebP, até 8 MB." />
         </span>
-        <div className="mt-1 flex flex-wrap gap-4">
-          {(['centro', 'base'] as const).map((posicao) => (
-            <label key={posicao} className="flex items-center gap-2 text-sm">
-              <input
-                type="radio"
-                name="posicaoDoCorte"
-                checked={posicaoDoCorte === posicao}
-                onChange={() => setPosicaoDoCorte(posicao)}
-                className="size-4 accent-[#e01b22]"
-              />
-              {posicao === 'centro' ? 'No meio' : 'Na parte de baixo'}
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      {(previa ?? produto?.imagem) !== undefined && (previa ?? produto?.imagem) !== null && (
-        <div className="flex items-center gap-4 rounded-xl border border-creme/10 bg-carvao p-4">
-          <Image
-            src={previa ?? produto?.imagem ?? ''}
-            alt=""
-            width={80}
-            height={100}
-            unoptimized={previa !== null}
-            className="h-25 w-20 rounded-lg object-cover"
-          />
-          <p className="text-xs leading-relaxed text-creme/60">
-            {previa === null ? 'Foto atual do produto.' : 'É exatamente assim que vai aparecer no site.'}
-          </p>
-        </div>
-      )}
+        <CampoDeFoto
+          {...(produto === undefined ? {} : { fotoAtual: produto.imagem })}
+          posicaoDoCorte={posicaoDoCorte}
+          aoMudarPosicao={setPosicaoDoCorte}
+        />
+      </div>
 
       <label className="flex items-start gap-3 rounded-xl border border-creme/10 bg-carvao p-4">
         <input
